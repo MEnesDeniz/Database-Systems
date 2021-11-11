@@ -6,15 +6,47 @@ import psycopg2 as dbapi2
 
 INIT_STATEMENTS = [
     """
-        create table if not exists airlines(
+    create table if not exists airlines(
         id serial primary key,
         ticker varchar not null,
         name varchar not null
-        )
-
-        
+    )
+    """,
     """
-
+    create table if not exists airports(
+        id serial primary key,
+        airport_name varchar not null,
+        city varchar not null,
+        state varchar not null,
+        country varchar not null,
+        latitude float not null,
+        longitude float not null
+    )
+    """,
+    """
+    create table if not exists flights(
+        id serial primary key,
+        year numeric(4) not null,
+        month int not null,
+        day int not null,
+        airline_ticker varchar not null,
+        flight_number int not null,
+        tail_number varchar not null,
+        starting_airport varchar not null,
+        destination_airport varchar not null,
+        departure_time int not null
+    )
+    """,
+    """
+    create table if not exists users(
+        user_id serial primary key,
+        name varchar not null,
+        mail varchar(30) not null,
+        password varchar not null,
+        phone_number char(11) not null,
+        affiliation varchar not null
+    )
+    """
 ]
 
 
