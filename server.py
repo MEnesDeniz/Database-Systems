@@ -1,10 +1,17 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, Blueprint
 import os
 from dbinit import initialize
 
 
+from views.airlines import airlines
+from views.flights import flights
+from views.airports import airports
 
 app = Flask(__name__)
+
+app.register_blueprint(airports)
+app.register_blueprint(airlines)
+app.register_blueprint(flights)
 
 HEROKU_LAUNCH = False
 
@@ -16,18 +23,6 @@ if(not HEROKU_LAUNCH):
 @app.route("/")
 def home_page():
     return render_template("home_page.html")
-
-@app.route("/airlines")
-def airlines_page():
-    return render_template("airlines_page.html")
-
-@app.route("/airports")
-def airports_page():
-    return render_template("airports_page.html")
-
-@app.route("/flights")
-def flights_page():
-    return render_template("flights_page.html")
 
 
 if __name__ == "__main__":
