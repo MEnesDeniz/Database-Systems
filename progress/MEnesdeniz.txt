@@ -1,2 +1,8 @@
 31.11.2021 Because of the some project constraints I have to switch my team, I have completed some steps in that team that could be avaiable and seen by my former team repo.
 08.11.2021 After starting project from stracth I have selected suitable dataset for my project. Work on the create database table schemas and found the necessary tables for satisyfing the conditions. After that I have setup my database and connect it to my project. Moreover I have created a layout html which I will use to generate other pages in the upcoming days. I have finished the project substructure and enviromental necessities. From now on I will create the necessary pages and functionalities.
+
+15.11.2021 I have two branches one for development and the other one for main branch. In start I thought that I would develop and later test the features than pull them to the main
+but after started the development process I realized that using another branch for development is not necessarily beneficial for me and also after checking the
+project instructions again the emphasis on commit style had come reasonable for me. I have created new pages(airlines,airports,flights) and and extended layout.html. 
+Also, using pgadmin4 I have populated some data to my database need write SQL queries on them ,mainly insert,. So to ensure POST method everything is nearly done. To ease the
+process of writing code I have also implemented blueprint to my structure.
