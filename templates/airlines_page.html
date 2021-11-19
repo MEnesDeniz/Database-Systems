@@ -1,7 +1,23 @@
 {% extends "layout.html" %}
 
 {%block subject%}
-<p>
-    this is the place where I hold airlines
-</p>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Airline Identifier</th>
+        <th scope="col">Airline Name</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for airlines in list_airlines%}
+      <tr>
+        <td>{{airlines[0]}}</td>
+        <td>{{airlines[1]}}</td>
+        <td>{{airlines[2]}}</td>
+      </tr>
+      {% endfor %}
+  </table>
+
 {%endblock subject%}
