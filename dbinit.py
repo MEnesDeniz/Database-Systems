@@ -8,13 +8,14 @@ INIT_STATEMENTS = [
     """
     create table if not exists airlines(
         id serial primary key,
-        ticker varchar not null,
+        ticker varchar unique,
         name varchar not null
     )
     """,
     """
     create table if not exists airports(
         id serial primary key,
+        airport_code varchar unique,
         airport_name varchar not null,
         city varchar not null,
         state varchar not null,
@@ -29,10 +30,10 @@ INIT_STATEMENTS = [
         year numeric(4) not null,
         month int not null,
         day int not null,
-        airline_ticker varchar not null,
+        airline_ticker varchar REFERENCES airlines(ticker),
         flight_number int not null,
         tail_number varchar not null,
-        starting_airport varchar not null,
+        starting_airport varchar REFERENCES airports(airport_code),
         destination_airport varchar not null,
         departure_time int not null
     )
