@@ -14,6 +14,7 @@
   </button>
 </form>
 
+<form action="" method="post" name="airline_delete">
 <table class="table">
   <thead>
     <tr>
@@ -23,13 +24,26 @@
     </tr>
   </thead>
   <tbody>
-    {% for airlines in list_airlines%}
+    {% for airline_keys, airlines, bcd in list_airlines%}
     <tr>
-      <td>{{airlines[0]}}</td>
-      <td>{{airlines[1]}}</td>
-      <td>{{airlines[2]}}</td>
+      <td>
+        <label class="checkbox">
+          <input type="checkbox" name="airline_keys" value="{{ airline_keys }}"/>
+        </label>
+        <a href="{{ url_for('airlines.airlines_page', airline_keys=airline_keys) }}"></a>
+        </td>
+        <td>{{airlines}}</td>
+        <td>{{bcd}}</td>
+      </td>
+
     </tr>
     {% endfor %}
 </table>
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-danger is-small">Delete</button>
+  </div>
+</div>
+</form>
 
 {%endblock subject%}

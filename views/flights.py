@@ -11,10 +11,18 @@ flights = Blueprint('flights', import_name=__name__,
 def flights_page():
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
-    cur.execute("SELECT * FROM flights")
-    list_flights = cur.fetchall()
-    cur.close()
-    return render_template("flights_page.html", list_flights=list_flights)
+    if request.method == "GET":
+        cur.execute("SELECT * FROM flights")
+        list_flights = cur.fetchall()
+        cur.close()
+        return render_template("flights_page.html", list_flights=list_flights)
+    else:
+        flight_keys = request.form.getlist("flight_keys")
+        for form_flight_keys in flight_keys:
+            cur.execute('DELETE FROM flights WHERE id = {0}'.format(form_flight_keys))
+        connection.commit()
+        cur.close()
+        return redirect(url_for('flights.flights_page'))
 
 
 @flights.route("/add_flight",  methods=["POST"])

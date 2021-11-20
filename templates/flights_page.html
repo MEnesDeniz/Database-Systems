@@ -32,8 +32,8 @@
 </form>
 
 
-
-<table class="table">
+<form action="" method="post" name="flights_x">
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -49,19 +49,32 @@
       </tr>
     </thead>
     <tbody>
-        {% for flights in list_flights%}
+      {% for flight_keys, year, month, day, airline_ticker, flight_number, tail_number, starting_airport,
+      destination_airport, departure_time in list_flights %}
       <tr>
-        <td>{{flights[0]}}</td>
-        <td>{{flights[1]}}</td>
-        <td>{{flights[2]}}</td>
-        <td>{{flights[3]}}</td>
-        <td>{{flights[4]}}</td>
-        <td>{{flights[5]}}</td>
-        <td>{{flights[6]}}</td>
-        <td>{{flights[7]}}</td>
-        <td>{{flights[8]}}</td>
-        <td>{{flights[9]}}</td>
+        <td>
+          <label class="checkbox">
+            <input type="checkbox" name="flight_keys" value="{{ flight_keys }}" />
+          </label>
+          <a href="{{ url_for('flights.flights_page', flight_keys=flight_keys) }}"></a>
+        </td>
+        <td>{{flight_keys}}</td>
+        <td>{{year}}</td>
+        <td>{{month}}</td>
+        <td>{{day}}</td>
+        <td>{{airline_ticker}}</td>
+        <td>{{flight_number}}</td>
+        <td>{{tail_number}}</td>
+        <td>{{starting_airport}}</td>
+        <td>{{destination_airport}}</td>
+        <td>{{departure_time}}</td>
       </tr>
       {% endfor %}
   </table>
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-danger is-small">Delete</button>
+    </div>
+  </div>
+</form>
 {%endblock subject%}

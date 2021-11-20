@@ -24,32 +24,46 @@
   </button>
 </form>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Airport Code</th>
-      <th scope="col">Airport Name</th>
-      <th scope="col">City</th>
-      <th scope="col">State</th>
-      <th scope="col">Country</th>
-      <th scope="col">Latitude</th>
-      <th scope="col">Longtitude</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for airports in list_airports%}
-    <tr>
-      <td>{{airports[0]}}</td>
-      <td>{{airports[1]}}</td>
-      <td>{{airports[2]}}</td>
-      <td>{{airports[3]}}</td>
-      <td>{{airports[4]}}</td>
-      <td>{{airports[5]}}</td>
-      <td>{{airports[6]}}</td>
-      <td>{{airports[7]}}</td>
-    </tr>
-    {% endfor %}
-</table>
+<form action="" method="post" name="airport_x">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Airport Code</th>
+        <th scope="col">Airport Name</th>
+        <th scope="col">City</th>
+        <th scope="col">State</th>
+        <th scope="col">Country</th>
+        <th scope="col">Latitude</th>
+        <th scope="col">Longtitude</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for airport_keys,airport_code,airport_name,city, state, country,latitude,longitude in list_airports%}
+      <tr>
+        <td>
+          <label class="checkbox">
+            <input type="checkbox" name="airport_keys" value="{{ airport_keys }}" />
+          </label>
+          <a href="{{ url_for('airports.airports_page', airport_keys=airport_keys) }}"></a>
+        </td>
+        <td>{{airport_keys}}</td>
+        <td>{{airport_keys}}</td>
+        <td>{{airport_code}}</td>
+        <td>{{airport_name}}</td>
+        <td>{{city}}</td>
+        <td>{{state}}</td>
+        <td>{{country}}</td>
+        <td>{{latitude}}</td>
+        <td>{{longitude}}</td>
+      </tr>
+      {% endfor %}
+  </table>
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-danger is-small">Delete</button>
+    </div>
+  </div>
+</form>
 
 {%endblock subject%}
