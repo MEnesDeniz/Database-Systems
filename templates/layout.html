@@ -19,13 +19,16 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item">
+              <a class="nav-link" href="{{url_for('home_page')}}">Home Page</a>
+              </li>
+              <li class="nav-item">
                   <a class="nav-link" href="{{url_for('airlines.airlines_page')}}">Airlines</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="{{url_for('airports.airports_page')}}">Airports</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('flights.flights_page') }}">Delayed Flights</a>
+                  <a class="nav-link" href="{{ url_for('flights.flights_page') }}">Flights</a>
               </li>
           </ul>
         </div>

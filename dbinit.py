@@ -50,6 +50,17 @@ INIT_STATEMENTS = [
     """
 ]
 
+# insert into airlines (ticker,name) values('THY','Turkish Airlines');
+# insert into airlines (ticker,name) values('UA','United Air Lines Inc.');
+# insert into airlines (ticker,name) values('AA','American Airlines Inc.');
+# insert into airlines (ticker,name) values('US','US Airways Inc.');
+
+# insert into airports (airport_code,airport_name,city,state,country,latitude,longitude) values ('ABE','Lehigh Valley International Airport','Allentown','PA','USA','40.65236','-75.4404');
+# insert into airports (airport_code,airport_name,city,state,country,latitude,longitude) values ('ABI','Abilene Regional Airport','Abilene','TX','USA','32.41132','-99.6819');
+# insert into airports (airport_code,airport_name,city,state,country,latitude,longitude) values ('ABQ','Albuquerque International Sunport','Albuquerque','NM','USA','35.04022','-106.60919');
+# insert into airports (airport_code,airport_name,city,state,country,latitude,longitude) values ('ABR','Aberdeen Regional Airport','Aberdeen','SD','USA','45.44906','-98.42183');
+# insert into airports (airport_code,airport_name,city,state,country,latitude,longitude) values ('ABY','Southwest Georgia Regional Airport','Albany','GA','USA','31.53552','-84.19447');
+
 
 def initialize(url):
     with dbapi2.connect(url) as connection:

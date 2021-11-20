@@ -1,7 +1,67 @@
 {% extends "layout.html" %}
 
 {%block subject%}
-<p>
-    this is the place where I hold flights
-</p>
+
+
+
+<form action="{{url_for('flights.add_flight')}}" method="post" name="flights_edit">
+  <div class="form-inline">
+    <input type="text" class="input" name="year" placeholder="Enter Year">
+
+    <input type="text" class="input" name="month" placeholder="Enter Month">
+
+    <input type="text" class="input" name="day" placeholder="Enter Day">
+
+    <input type="text" class="input" name="airline_ticker" placeholder="Enter Airline Code">
+
+    <input type="text" class="input" name="flight_number" placeholder="Enter Flight Number">
+
+    <input type="text" class="input" name="tail_number" placeholder="Enter Tail Number">
+
+    <input type="text" class="input" name="starting_airport" placeholder="Enter Starting Location">
+
+    <input type="text" class="input" name="destination_airport" placeholder="Enter Destination Location">
+
+    <input type="text" class="input" name="departure_time" placeholder="Enter Departure Time">
+
+
+  </div>
+  <button class="btn btn-primary btn-block">
+    Save
+  </button>
+</form>
+
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Year</th>
+        <th scope="col">Month</th>
+        <th scope="col">Day</th>
+        <th scope="col">Airline Firm</th>
+        <th scope="col">Flight Number</th>
+        <th scope="col">Tail Number</th>
+        <th scope="col">Starting Airport</th>
+        <th scope="col">Destination Airport</th>
+        <th scope="col">Departure Time</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for flights in list_flights%}
+      <tr>
+        <td>{{flights[0]}}</td>
+        <td>{{flights[1]}}</td>
+        <td>{{flights[2]}}</td>
+        <td>{{flights[3]}}</td>
+        <td>{{flights[4]}}</td>
+        <td>{{flights[5]}}</td>
+        <td>{{flights[6]}}</td>
+        <td>{{flights[7]}}</td>
+        <td>{{flights[8]}}</td>
+        <td>{{flights[9]}}</td>
+      </tr>
+      {% endfor %}
+  </table>
 {%endblock subject%}

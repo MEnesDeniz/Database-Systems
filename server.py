@@ -27,6 +27,6 @@ def home_page():
 
 if __name__ == "__main__":
     if(not HEROKU_LAUNCH):
-        app.run(debug = False)
+        app.run(debug=False)
     else:
-        app.run(debug = True)
+        app.run(debug=True)

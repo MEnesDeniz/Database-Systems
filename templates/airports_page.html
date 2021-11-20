@@ -1,7 +1,55 @@
 {% extends "layout.html" %}
 
 {%block subject%}
-<p>
-    this is the place where I hold airports
-</p>
+
+<form action="{{url_for('airports.add_airport')}}" method="post" name="airports_edit">
+  <div class="form-inline">
+    <input type="text" class="input" name="airport_code" placeholder="Enter Airport Code">
+
+    <input type="text" class="input" name="airport_name" placeholder="Enter Airport Name">
+
+    <input type="text" class="input" name="city" placeholder="Enter City">
+
+    <input type="text" class="input" name="state" placeholder="Enter State">
+
+    <input type="text" class="input" name="country" placeholder="Enter Country">
+
+    <input type="text" class="input" name="latitude" placeholder="Enter Latitude">
+
+    <input type="text" class="input" name="longitude" placeholder="Enter Longitude">
+
+  </div>
+  <button class="btn btn-primary btn-block">
+    Save
+  </button>
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Airport Code</th>
+      <th scope="col">Airport Name</th>
+      <th scope="col">City</th>
+      <th scope="col">State</th>
+      <th scope="col">Country</th>
+      <th scope="col">Latitude</th>
+      <th scope="col">Longtitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for airports in list_airports%}
+    <tr>
+      <td>{{airports[0]}}</td>
+      <td>{{airports[1]}}</td>
+      <td>{{airports[2]}}</td>
+      <td>{{airports[3]}}</td>
+      <td>{{airports[4]}}</td>
+      <td>{{airports[5]}}</td>
+      <td>{{airports[6]}}</td>
+      <td>{{airports[7]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
 {%endblock subject%}

@@ -2,22 +2,34 @@
 
 {%block subject%}
 
+<form action="{{url_for('airlines.add_airline')}}" method="post" name="airline_edit">
+  <div class="form-group">
+    <input type="text" class="form-control" name="airline_ticker" placeholder="Airline Identifier">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="airline_name" placeholder="Airline Name">
+  </div>
+  <button class="btn btn-primary btn-block">
+    Save
+  </button>
+</form>
+
 <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Airline Identifier</th>
-        <th scope="col">Airline Name</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for airlines in list_airlines%}
-      <tr>
-        <td>{{airlines[0]}}</td>
-        <td>{{airlines[1]}}</td>
-        <td>{{airlines[2]}}</td>
-      </tr>
-      {% endfor %}
-  </table>
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Airline Identifier</th>
+      <th scope="col">Airline Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for airlines in list_airlines%}
+    <tr>
+      <td>{{airlines[0]}}</td>
+      <td>{{airlines[1]}}</td>
+      <td>{{airlines[2]}}</td>
+    </tr>
+    {% endfor %}
+</table>
 
 {%endblock subject%}
