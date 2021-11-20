@@ -28,6 +28,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th scope="col"></th>
         <th scope="col">ID</th>
         <th scope="col">Airport Code</th>
         <th scope="col">Airport Name</th>
@@ -39,7 +40,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for airport_keys,airport_code,airport_name,city, state, country,latitude,longitude in list_airports%}
+      {% for airport_keys, airport_code,airport_name,city, state, country,latitude,longitude in list_airports%}
       <tr>
         <td>
           <label class="checkbox">
@@ -47,7 +48,6 @@
           </label>
           <a href="{{ url_for('airports.airports_page', airport_keys=airport_keys) }}"></a>
         </td>
-        <td>{{airport_keys}}</td>
         <td>{{airport_keys}}</td>
         <td>{{airport_code}}</td>
         <td>{{airport_name}}</td>

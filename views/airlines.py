@@ -17,8 +17,8 @@ def airlines_page():
         return render_template("airlines_page.html", list_airlines=list_airlines)
     else:
         airline_keys = request.form.getlist("airline_keys")
-        for form_movie_key in airline_keys:
-            cur.execute('DELETE FROM airlines WHERE id = {0}'.format(form_movie_key))
+        for form_airline_key in airline_keys:
+            cur.execute('DELETE FROM airlines WHERE id = {0}'.format(form_airline_key))
         connection.commit()
         cur.close()
         return redirect(url_for('airlines.airlines_page'))
