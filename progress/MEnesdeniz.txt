@@ -6,3 +6,8 @@ but after started the development process I realized that using another branch f
 project instructions again the emphasis on commit style had come reasonable for me. I have created new pages(airlines,airports,flights) and and extended layout.html. 
 Also, using pgadmin4 I have populated some data to my database need write SQL queries on them ,mainly insert,. So to ensure POST method everything is nearly done. To ease the
 process of writing code I have also implemented blueprint to my structure.
+
+20.11.2021 I have completed many of the GET and POST operations by using forms. Create, Read and Delete operations could be executed on the tables.
+I am able to make Update but I did not decide how really I will update the values so firstly I will plan about this. I have also added 2 foreign key to my tables and I will use this foreign keys to make more sophisticated queries.
+From now on I will focus on login system. For test purposes I have populated my database with some of the sample data which could be seen from db.init.py. tested each create read and delete operation and seen that
+all of them executed as intented. I could insert new values, delete the existing tuples as individual also as a list and could be access/read them on their pages.
