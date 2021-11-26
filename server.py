@@ -6,12 +6,14 @@ from dbinit import initialize
 from views.airlines import airlines
 from views.flights import flights
 from views.airports import airports
+from views.user_authentication import user_authentication
 
 app = Flask(__name__)
 
 app.register_blueprint(airports)
 app.register_blueprint(airlines)
 app.register_blueprint(flights)
+app.register_blueprint(user_authentication)
 
 HEROKU_LAUNCH = False
 
@@ -20,7 +22,7 @@ if(not HEROKU_LAUNCH):
     initialize(os.environ.get('DATABASE_URL'))
 
 
-@app.route("/")
+@app.route("/home_page")
 def home_page():
     return render_template("home_page.html")
 

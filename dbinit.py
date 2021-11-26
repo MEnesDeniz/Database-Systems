@@ -41,11 +41,14 @@ INIT_STATEMENTS = [
     """
     create table if not exists users(
         user_id serial primary key,
-        name varchar not null,
+        nick_name varchar not null,
         mail varchar(30) not null,
+        name varchar not null,
         password varchar not null,
         phone_number char(11) not null,
-        affiliation varchar not null
+        job_title varchar not null,
+        affiliation varchar not null,
+        user_type int not null
     )
     """
 ]
