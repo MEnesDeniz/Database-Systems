@@ -14,3 +14,6 @@ all of them executed as intented. I could insert new values, delete the existing
 
 28.11.2021 I have created login and sign up pages. From now on, I plan to spend some time on the design part. I have satsified the basic necessities that has been asked by the
 project scope. I will add some extra features and as stated before try to improve my website's design/user interface part.
+
+06.12.2021 I have researched about style and design and found some good samples for my project. Due to one of my family relative health issue I spent most of the time with
+dealing with it thus I could not have time to update the style according to what I found. I will give more weight to this project in this week.
