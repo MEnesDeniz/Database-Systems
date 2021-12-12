@@ -17,3 +17,5 @@ project scope. I will add some extra features and as stated before try to improv
 
 06.12.2021 I have researched about style and design and found some good samples for my project. Due to one of my family relative health issue I spent most of the time with
 dealing with it thus I could not have time to update the style according to what I found. I will give more weight to this project in this week.
+
+12.12.2021 The login and register authentication worked on.
