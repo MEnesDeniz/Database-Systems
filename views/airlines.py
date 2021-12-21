@@ -39,17 +39,18 @@ def add_airline():
         return redirect(url_for('airlines.airlines_page'))
 
 
-"""
-@airlines.route("/update/<id>", methods=['POST'])
-def update_airline():
+
+@airlines.route("/airline_update/<id>", methods= ['POST', 'GET'])
+def update_airline(id):
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == 'POST':
         airline_ticker = request.form['airline_ticker']
         airline_name = request.form['airline_name']
-        cur.execute("UPDATE airlines SET ticker = %s, name = %s VALUES (%s,%s)",
-                    (airline_ticker, airline_name))
+        cur.execute("UPDATE airlines SET ticker = %s, name = %s WHERE id = %s",
+                    (airline_ticker, airline_name,id))
         connection.commit()
         cur.close()
-    return redirect(url_for('airlines.airlines_page'))
-"""
+        return redirect(url_for('airlines.airlines_page'))
+    return render_template("airlines_update.html", id = id)
+

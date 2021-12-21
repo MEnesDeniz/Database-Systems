@@ -7,7 +7,7 @@ airports = Blueprint('airports', import_name=__name__,
                      template_folder="templates")
 
 
-@airports.route("/airports",  methods=["GET", "POST"])
+@airports.route("/airport",  methods=["GET", "POST"])
 def airports_page():
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
