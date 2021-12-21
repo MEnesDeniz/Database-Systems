@@ -18,11 +18,11 @@ def airlines_page():
     else:
         airline_keys = request.form.getlist("airline_keys")
         for form_airline_key in airline_keys:
-            cur.execute('DELETE FROM airlines WHERE id = {0}'.format(form_airline_key))
+            cur.execute(
+                'DELETE FROM airlines WHERE id = {0}'.format(form_airline_key))
         connection.commit()
         cur.close()
         return redirect(url_for('airlines.airlines_page'))
-
 
 
 @airlines.route("/add_airline",  methods=["POST"])
@@ -37,3 +37,19 @@ def add_airline():
         connection.commit()
         cur.close()
         return redirect(url_for('airlines.airlines_page'))
+
+
+"""
+@airlines.route("/update/<id>", methods=['POST'])
+def update_airline():
+    connection = db.connect(os.getenv("DATABASE_URL"))
+    cur = connection.cursor()
+    if request.method == 'POST':
+        airline_ticker = request.form['airline_ticker']
+        airline_name = request.form['airline_name']
+        cur.execute("UPDATE airlines SET ticker = %s, name = %s VALUES (%s,%s)",
+                    (airline_ticker, airline_name))
+        connection.commit()
+        cur.close()
+    return redirect(url_for('airlines.airlines_page'))
+"""
