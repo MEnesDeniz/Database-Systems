@@ -44,6 +44,8 @@ def add_airline():
 def update_airline(id):
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
+    cur.execute('SELECT * FROM airlines WHERE id = %s', (id))
+    data = cur.fetchall()
     if request.method == 'POST':
         airline_ticker = request.form['airline_ticker']
         airline_name = request.form['airline_name']
