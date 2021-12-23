@@ -13,6 +13,7 @@ def airlines_page():
     if request.method == "GET":
         cur.execute("SELECT * FROM airlines")
         list_airlines = cur.fetchall()
+        print(list_airlines)
         cur.close()
         return render_template("airlines_page.html", list_airlines=list_airlines)
     else:
@@ -44,8 +45,10 @@ def add_airline():
 def update_airline(id):
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
-    cur.execute('SELECT * FROM airlines WHERE id = %s', (id))
-    data = cur.fetchall()
+    if request.method == 'GET':
+        cur.execute('SELECT * FROM airlines WHERE id = {0}'. format(id))
+        airline_info = cur.fetchall()
+        cur.close()
     if request.method == 'POST':
         airline_ticker = request.form['airline_ticker']
         airline_name = request.form['airline_name']
@@ -54,5 +57,5 @@ def update_airline(id):
         connection.commit()
         cur.close()
         return redirect(url_for('airlines.airlines_page'))
-    return render_template("airlines_update.html", id = id)
+    return render_template("airlines_update.html", airline_info = airline_info)
 

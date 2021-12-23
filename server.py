@@ -18,6 +18,7 @@ app.register_blueprint(user_authentication)
 HEROKU_LAUNCH = False
 
 if(not HEROKU_LAUNCH):
+
     os.environ['DATABASE_URL'] = "dbname = 'postgres' user='postgres' host='localhost' password='123'"
     initialize(os.environ.get('DATABASE_URL'))
 
