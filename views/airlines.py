@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, url_for, session
 import psycopg2 as db
 import os
 
@@ -29,15 +29,16 @@ def airlines_page():
 @airlines.route("/add_airline",  methods=["POST"])
 def add_airline():
     connection = db.connect(os.getenv("DATABASE_URL"))
-    cur = connection.cursor()
-    if request.method == 'POST':
-        airline_ticker = request.form['airline_ticker']
-        airline_name = request.form['airline_name']
-        cur.execute("INSERT INTO airlines(ticker,name) VALUES (%s,%s)",
-                    (airline_ticker, airline_name))
-        connection.commit()
-        cur.close()
-        return redirect(url_for('airlines.airlines_page'))
+    if 'username' in session:
+        cur = connection.cursor()
+        if request.method == 'POST':
+            airline_ticker = request.form['airline_ticker']
+            airline_name = request.form['airline_name']
+            cur.execute("INSERT INTO airlines(ticker,name) VALUES (%s,%s)",
+                        (airline_ticker, airline_name))
+            connection.commit()
+            cur.close()
+            return redirect(url_for('airlines.airlines_page'))
 
 
 

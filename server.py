@@ -8,7 +8,9 @@ from views.flights import flights
 from views.airports import airports
 from views.user_authentication import user_authentication
 
+
 app = Flask(__name__)
+app.secret_key = 'airlinesecretkey'
 
 app.register_blueprint(airports)
 app.register_blueprint(airlines)

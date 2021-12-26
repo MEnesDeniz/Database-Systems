@@ -1,4 +1,5 @@
-from flask import Blueprint, request, render_template, redirect, url_for, session
+from flask import Blueprint, request,   render_template, redirect, url_for, session
+from hashlib import sha256
 import psycopg2 as db
 import os
 
@@ -22,10 +23,13 @@ def login():
         connection = db.connect(os.getenv("DATABASE_URL"))
         cur = connection.cursor()
 
-        cur.execute("SELECT mail, password FROM users WHERE mail = %s and password = %s", (mail, password))
+        cur.execute("SELECT * FROM users WHERE mail = %s and password = %s", (mail, password))
         existing_account = cur.fetchone()
         cur.close()
         if existing_account:
+            session['loggedin'] = True
+            session['id'] = existing_account[0]
+            session['username'] = existing_account[1]
             return redirect(url_for('home_page'))
 
 
