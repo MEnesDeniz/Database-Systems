@@ -19,3 +19,6 @@ project scope. I will add some extra features and as stated before try to improv
 dealing with it thus I could not have time to update the style according to what I found. I will give more weight to this project in this week.
 
 12.12.2021 The login and register authentication worked on.
+19.12.2021 Update had been initiated for the respective tables.
+
+27.12.2021 Authentication system had been upgraded, session had been added and some minor changes had been done to the table.
