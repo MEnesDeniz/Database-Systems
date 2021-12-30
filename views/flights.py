@@ -30,17 +30,17 @@ def add_flight():
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == 'POST':
-        year = request.form['year']
-        month = request.form['month']
-        day = request.form['day']
+        date = request.form['date']
         airline_ticker = request.form['airline_ticker']
         flight_number = request.form['flight_number']
         tail_number = request.form['tail_number']
         starting_airport = request.form['starting_airport']
         destination_airport = request.form['destination_airport']
-        departure_time = request.form['departure_time']
-        cur.execute("INSERT INTO flights(year,month,day,airline_ticker,flight_number,tail_number,starting_airport,destination_airport,departure_time) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
-            year, month, day, airline_ticker, flight_number, tail_number, starting_airport, destination_airport, departure_time))
+        departure_time = request.form['dep_time']
+        arrival_time = request.form['arriv_time']
+        distance = request.form['distance']
+        cur.execute("INSERT INTO flights(date,airline_ticker,flight_number,tail_number,starting_airport,destination_airport,scheduled_departure,scheduled_arrival,distance  ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
+            date, airline_ticker, flight_number, tail_number, starting_airport, destination_airport, departure_time, arrival_time, distance))
         connection.commit()
         cur.close()
         return redirect(url_for('flights.flights_page'))

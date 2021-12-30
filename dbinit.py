@@ -8,34 +8,34 @@ INIT_STATEMENTS = [
     """
     create table if not exists airlines(
         id serial primary key,
-        ticker varchar unique,
-        name varchar not null
+        ticker VARCHAR unique,
+        name VARCHAR not null
     )
     """,
     """
     create table if not exists airports(
         id serial primary key,
-        airport_code varchar unique,
-        airport_name varchar not null,
-        city varchar not null,
-        state varchar not null,
-        country varchar not null,
-        latitude float not null,
-        longitude float not null
+        airport_code VARCHAR unique,
+        airport_name VARCHAR not null,
+        city VARCHAR not null,
+        state VARCHAR not null,
+        country VARCHAR not null,
+        latitude VARCHAR not null,
+        longitude VARCHAR not null
     )
     """,
     """
     create table if not exists flights(
         id serial primary key,
-        year numeric(4) not null,
-        month int not null,
-        day int not null,
-        airline_ticker varchar REFERENCES airlines(ticker),
-        flight_number int not null,
-        tail_number varchar not null,
-        starting_airport varchar REFERENCES airports(airport_code),
-        destination_airport varchar not null,
-        departure_time int not null
+        date DATE not null DEFAULT CURRENT_DATE,
+        airline_ticker VARCHAR REFERENCES airlines(ticker) ON DELETE CASCADE ON UPDATE CASCADE,
+        flight_number VARCHAR not null,
+        tail_number VARCHAR not null,
+        starting_airport VARCHAR REFERENCES airports(airport_code)  ON DELETE CASCADE ON UPDATE CASCADE,
+        destination_airport varchar REFERENCES airports(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
+        scheduled_departure VARCHAR (5) NOT NULL,
+        scheduled_arrival VARCHAR (5) NOT NULL,
+        distance  VARCHAR NOT NULL
     )
     """,
     """
@@ -49,6 +49,13 @@ INIT_STATEMENTS = [
         job_title varchar not null,
         affiliation varchar not null,
         user_type int not null
+    )
+    """,
+    """
+    create table if not exists deneme(
+        id serial primary key,
+        date DATE not null DEFAULT CURRENT_DATE,
+        dep_time VARCHAR (5) NOT NULL
     )
     """
 ]

@@ -41,8 +41,7 @@ def add_airline():
             return redirect(url_for('airlines.airlines_page'))
 
 
-
-@airlines.route("/airline_update/<id>", methods= ['POST', 'GET'])
+@airlines.route("/airline_update/<id>", methods=['POST', 'GET'])
 def update_airline(id):
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
@@ -54,9 +53,22 @@ def update_airline(id):
         airline_ticker = request.form['airline_ticker']
         airline_name = request.form['airline_name']
         cur.execute("UPDATE airlines SET ticker = %s, name = %s WHERE id = %s",
-                    (airline_ticker, airline_name,id))
+                    (airline_ticker, airline_name, id))
         connection.commit()
         cur.close()
         return redirect(url_for('airlines.airlines_page'))
-    return render_template("airlines_update.html", airline_info = airline_info)
+    return render_template("airlines_update.html", airline_info=airline_info)
 
+
+@airlines.route("/deneme",  methods=["POST"])
+def deneme():
+    connection = db.connect(os.getenv("DATABASE_URL"))
+    cur = connection.cursor()
+    if request.method == 'POST':
+        date = request.form['date']
+        time = request.form['dep_time']
+        cur.execute("INSERT INTO deneme(date,dep_time) VALUES (%s,%s)",
+                    (date, time))
+        connection.commit()
+        cur.close()
+        return redirect(url_for('airlines.airlines_page'))
