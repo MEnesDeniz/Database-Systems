@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{%block subject%}
+
+<div class="container">
+    <form action="" method="post" name="flights_x">
+      <table id="table" class="ui celled table" style="width:100%">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Nick Name</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Name</th>
+            <th scope="col">Password</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Job Title</th>
+            <th scope="col">Company</th>
+            <th scope="col">User Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user_keys, nick_name, mail, name, password, phone_number,
+            job_title, affiliation, user_type in list_users %}
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" name="user_keys" value="{{ user_keys }}" />
+              </label>
+              <a href="{{ url_for('flights.flights_page', flight_keys=flight_keys) }}"></a>
+            </td>
+            <td>{{nick_name}}</td>
+            <td>{{mail}}</td>
+            <td>{{name}}</td>
+            <td>{{password}}</td>
+            <td>{{phone_number}}</td>
+            <td>{{job_title}}</td>
+            <td>{{affiliation}}</td>
+            <td>{{user_type}}</td>
+          </tr>
+          {% endfor %}
+      </table>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-danger is-small">Delete</button>
+        </div>
+      </div>
+    </form>
+    {%endblock subject%}
