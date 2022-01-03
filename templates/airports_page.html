@@ -55,6 +55,8 @@
           <td>{{country}}</td>
           <td>{{latitude}}</td>
           <td>{{longitude}}</td>
+          <td><a href="{{ url_for('airports.update_airport', id = airport_keys) }}" class="btn btn-secondary btn-sm">
+            Update </a></td>
         </tr>
         {% endfor %}
     </table>
@@ -71,14 +73,14 @@
   <ul class="pagination">
     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
     <li class="page-item"><a class="page-link"
-        href="{{ url_for('airports.airports_page', current_page = current_page) }}">{{current_page}}</a></li>
+        href="{{ url_for('airports.airports_page', current_page = 1) }}">{{current_page[0]}}</a></li>
     <li class="page-item"><a class="page-link"
-        href="{{ url_for('airports.airports_page', current_page = current_page+1) }}">{{current_page+1}}</a></li>
+        href="{{ url_for('airports.airports_page', current_page = 2) }}">{{current_page[1]}}</a></li>
     <li class="page-item"><a class="page-link"
-        href="{{ url_for('airports.airports_page', current_page = current_page+2) }}">{{current_page+2}}</a></li>
+        href="{{ url_for('airports.airports_page', current_page = 3) }}">{{current_page[2]}}</a></li>
     <li class="page-item"><a class="page-link">....</a></li>
     <li class="page-item"><a class="page-link"
-        href="{{ url_for('airports.airports_page', current_page = total_page) }}">{{total_page}}</a></li>
+        href="{{ url_for('airports.airports_page', current_page = 4) }}">{{current_page[3]}}</a></li>
     <li class="page-item"><a class="page-link" href="#">Next</a></li>
   </ul>
 </nav>

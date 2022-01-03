@@ -59,16 +59,3 @@ def update_airline(id):
         return redirect(url_for('airlines.airlines_page'))
     return render_template("airlines_update.html", airline_info=airline_info)
 
-
-@airlines.route("/deneme",  methods=["POST"])
-def deneme():
-    connection = db.connect(os.getenv("DATABASE_URL"))
-    cur = connection.cursor()
-    if request.method == 'POST':
-        date = request.form['date']
-        time = request.form['dep_time']
-        cur.execute("INSERT INTO deneme(date,dep_time) VALUES (%s,%s)",
-                    (date, time))
-        connection.commit()
-        cur.close()
-        return redirect(url_for('airlines.airlines_page'))

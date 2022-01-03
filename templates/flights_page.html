@@ -67,6 +67,8 @@
         <td>{{scheduled_departure}}</td>
         <td>{{scheduled_arrival}}</td>
         <td>{{distance}}</td>
+        <td><a href="{{ url_for('flights.update_flight', id = flight_keys) }}" class="btn btn-secondary btn-sm">
+          Update </a></td>
       </tr>
       {% endfor %}
   </table>

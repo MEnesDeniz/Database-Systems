@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{%block subject%}
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card card-body">
+            <form action="{{ url_for('flights.update_flight', id = flights_info[0][0]) }}" method="post"
+                name="airport_update">
+                <div class="form-group">
+                    <input type="date" name="date" value="{{flights_info[0][1]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="airline_ticker" value="{{flights_info[0][2]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="flight_number" value="{{flights_info[0][3]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="tail_number" value="{{flights_info[0][4]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="starting_airport" value="{{flights_info[0][5]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="destination_airport" value="{{flights_info[0][6]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="time" name="dep_time" value="{{flights_info[0][7]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="time" name="arriv_time" value="{{flights_info[0][8]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="distance" value="{{flights_info[0][9]}}" class="form-control">
+                </div>
+
+                <button class="btn btn-primary btn-block">
+                    Save
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{%endblock subject%}
