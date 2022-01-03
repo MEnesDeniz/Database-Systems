@@ -6,23 +6,23 @@
 
 <form action="{{url_for('flights.add_flight')}}" method="post" name="flights_edit">
   <div class="form-inline">
-    <input type="text" class="input" name="year" placeholder="Enter Year">
+    <input type="date" class="form-control" name="date" placeholder="Date">
 
-    <input type="text" class="input" name="month" placeholder="Enter Month">
+    <input type="text" class="input" name="airline_ticker" placeholder="Airline Code">
 
-    <input type="text" class="input" name="day" placeholder="Enter Day">
+    <input type="text" class="input" name="flight_number" placeholder="Flight Number">
 
-    <input type="text" class="input" name="airline_ticker" placeholder="Enter Airline Code">
+    <input type="text" class="input" name="tail_number" placeholder="Tail Number">
 
-    <input type="text" class="input" name="flight_number" placeholder="Enter Flight Number">
+    <input type="text" class="input" name="starting_airport" placeholder="Starting Location">
 
-    <input type="text" class="input" name="tail_number" placeholder="Enter Tail Number">
+    <input type="text" class="input" name="destination_airport" placeholder="Destination Location">
 
-    <input type="text" class="input" name="starting_airport" placeholder="Enter Starting Location">
+    <input type="time" class="form-control" name="dep_time" placeholder="Departure Time">
 
-    <input type="text" class="input" name="destination_airport" placeholder="Enter Destination Location">
+    <input type="time" class="form-control" name="arriv_time" placeholder="Arrival Time">
 
-    <input type="text" class="input" name="departure_time" placeholder="Enter Departure Time">
+    <input type="text" class="input" name="distance" placeholder="Distance">
 
 
   </div>
@@ -31,27 +31,26 @@
   </button>
 </form>
 
-
+<div class="container">
 <form action="" method="post" name="flights_x">
-  <table class="table">
+  <table class="ui celled table" style="width:100%">
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">ID</th>
-        <th scope="col">Year</th>
-        <th scope="col">Month</th>
-        <th scope="col">Day</th>
+        <th scope="col">Date</th>
         <th scope="col">Airline Firm</th>
         <th scope="col">Flight Number</th>
         <th scope="col">Tail Number</th>
         <th scope="col">Starting Airport</th>
         <th scope="col">Destination Airport</th>
         <th scope="col">Departure Time</th>
+        <th scope="col">Arrival Time</th>
+        <th scope="col">Distance</th>
       </tr>
     </thead>
     <tbody>
-      {% for flight_keys, year, month, day, airline_ticker, flight_number, tail_number, starting_airport,
-      destination_airport, departure_time in list_flights %}
+      {% for flight_keys, date, airline_ticker, flight_number, tail_number, starting_airport,
+      destination_airport, scheduled_departure, scheduled_arrival, distance in list_flights %}
       <tr>
         <td>
           <label class="checkbox">
@@ -59,16 +58,15 @@
           </label>
           <a href="{{ url_for('flights.flights_page', flight_keys=flight_keys) }}"></a>
         </td>
-        <td>{{flight_keys}}</td>
-        <td>{{year}}</td>
-        <td>{{month}}</td>
-        <td>{{day}}</td>
+        <td>{{date}}</td>
         <td>{{airline_ticker}}</td>
         <td>{{flight_number}}</td>
         <td>{{tail_number}}</td>
         <td>{{starting_airport}}</td>
         <td>{{destination_airport}}</td>
-        <td>{{departure_time}}</td>
+        <td>{{scheduled_departure}}</td>
+        <td>{{scheduled_arrival}}</td>
+        <td>{{distance}}</td>
       </tr>
       {% endfor %}
   </table>
@@ -78,4 +76,5 @@
     </div>
   </div>
 </form>
+</div>
 {%endblock subject%}

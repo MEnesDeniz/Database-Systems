@@ -22,3 +22,5 @@ dealing with it thus I could not have time to update the style according to what
 19.12.2021 Update had been initiated for the respective tables.
 
 27.12.2021 Authentication system had been upgraded, session had been added and some minor changes had been done to the table.
+
+03.01.2022 I have made pagination and some updates in the database, I will finalize my project

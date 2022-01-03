@@ -14,12 +14,12 @@
   </button>
 </form>
 
+
 <form action="" method="post" name="airline_delete">
-  <table class="table">
+  <table class="ui celled table" style="width:100%">
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">ID</th>
         <th scope="col">Airline Identifier</th>
         <th scope="col">Airline Name</th>
         <th scope="col">Update</th>
@@ -34,10 +34,10 @@
           </label>
           <a href="{{ url_for('airlines.airlines_page', airline_keys=airline_keys) }}"></a>
         </td>
-        <td>{{airline_keys}}</td>
         <td>{{airlines}}</td>
         <td>{{airline_name}}</td>
-        <td><a href="{{ url_for('airlines.update_airline', id = airline_keys) }}"class="btn btn-secondary btn-sm"> Update </a></td>
+        <td><a href="{{ url_for('airlines.update_airline', id = airline_keys) }}" class="btn btn-secondary btn-sm">
+            Update </a></td>
       </tr>
       {% endfor %}
   </table>
@@ -47,5 +47,8 @@
     </div>
   </div>
 </form>
+
+
+
 
 {%endblock subject%}

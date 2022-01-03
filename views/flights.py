@@ -12,7 +12,7 @@ def flights_page():
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
-        cur.execute("SELECT * FROM flights")
+        cur.execute("SELECT  * FROM flights ORDER BY DATE LIMIT 100")
         list_flights = cur.fetchall()
         cur.close()
         return render_template("flights_page.html", list_flights=list_flights)

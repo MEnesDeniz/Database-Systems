@@ -25,24 +25,8 @@
 </form>
 
 <div class="container">
-  <h2>Select Number Of Rows</h2>
-  <div class="form-group">
-    <!--		Show Numbers Of Rows 		-->
-    <select class="form-control" name="state" id="maxRows">
-      <option value="5000">Show ALL Rows</option>
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
-      <option value="50">50</option>
-      <option value="70">70</option>
-      <option value="100">100</option>
-    </select>
-
-  </div>
-
   <form action="" method="post" name="airport_x">
-    <table class="table">
+    <table class="ui celled table" style="width:100%">
       <thead>
         <tr>
           <th scope="col"></th>
@@ -80,25 +64,25 @@
       </div>
     </div>
   </form>
+</div>
 
-  <!--		Start Pagination -->
-  <div class='pagination-container'>
-    <nav>
-      <ul class="pagination">
 
-        <li data-page="prev">
-          <span>
-            < <span class="sr-only">(current)
-          </span></span>
-        </li>
-        <!--	Here the JS Function Will Add the Rows -->
-        <li data-page="next" id="prev">
-          <span> > <span class="sr-only">(current)</span></span>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</div> 
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link"
+        href="{{ url_for('airports.airports_page', current_page = current_page) }}">{{current_page}}</a></li>
+    <li class="page-item"><a class="page-link"
+        href="{{ url_for('airports.airports_page', current_page = current_page+1) }}">{{current_page+1}}</a></li>
+    <li class="page-item"><a class="page-link"
+        href="{{ url_for('airports.airports_page', current_page = current_page+2) }}">{{current_page+2}}</a></li>
+    <li class="page-item"><a class="page-link">....</a></li>
+    <li class="page-item"><a class="page-link"
+        href="{{ url_for('airports.airports_page', current_page = total_page) }}">{{total_page}}</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+
 
 
 {%endblock subject%}
