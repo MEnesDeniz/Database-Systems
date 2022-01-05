@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{%block subject%}
+
+<div class="container">
+    <form action="" method="post" name="delete">
+        <table class="ui celled table" style="width:100%">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Nick Name</th>
+                    <th scope="col">Type of Travel</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Satisfaction</th>
+                    <th scope="col">Online Support</th>
+                    <th scope="col">Checkin Service</th>
+                    <th scope="col">Baggage Handling</th>
+                    <th scope="col">Cleanliness</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feedback in feedbacks%}
+                <tr>
+                    <td>
+                        <label class="checkbox">
+                            <input type="checkbox" name="feedback_id" value="{{feedback[0]}}" />
+                        </label>
+                        <a href="{{ url_for('feedback.airline_feedback', ticker=feedback[9], id=feedback[0]) }}"></a>
+                    </td>
+                    <td>{{feedback[1]}}</td>
+                    <td>{{feedback[2]}}</td>
+                    <td>{{feedback[3]}}</td>
+                    <td>{{feedback[4]}}</td>
+                    <td>{{feedback[5]}}</td>
+                    <td>{{feedback[6]}}</td>
+                    <td>{{feedback[7]}}</td>
+                    <td>{{feedback[8]}}</td>
+                </tr>
+                {% endfor %}
+        </table>
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-danger is-small">Delete</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+{%endblock subject%}
