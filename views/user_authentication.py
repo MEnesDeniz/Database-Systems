@@ -19,11 +19,11 @@ def login():
     if request.method == 'POST':
         mail = request.form['mail']
         password = request.form['pw']
-
+        pw = sha256(password.encode()).hexdigest()
         connection = db.connect(os.getenv("DATABASE_URL"))
         cur = connection.cursor()
 
-        cur.execute("SELECT * FROM users WHERE mail = %s and password = %s", (mail, password))
+        cur.execute("SELECT * FROM users WHERE mail = %s and password = %s", (mail, pw))
         existing_account = cur.fetchone()
         cur.close()
         if existing_account:
@@ -46,11 +46,13 @@ def register():
         phone_number = request.form['phone_number']
         gender = request.form['gender']
         habits = request.form['habit']
+
+        pw_hashed = sha256(password.encode()).hexdigest()
         connection = db.connect(os.getenv("DATABASE_URL"))
         cur = connection.cursor()
 
         cur.execute("INSERT INTO users(nick_name,mail,password, name, surname, phone , GENDER, user_description) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (
-            nick_name, mail, password, name, surname, phone_number, gender,habits ))
+            nick_name, mail, pw_hashed, name, surname, phone_number, gender,habits ))
         connection.commit()
         cur.close()
         return redirect(url_for('user_authentication.login'))

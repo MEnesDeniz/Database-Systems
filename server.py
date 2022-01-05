@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, Blueprint
 import os
 from dbinit import initialize
-
+from flask_login import LoginManager
 
 from views.airlines import airlines
 from views.flights import flights

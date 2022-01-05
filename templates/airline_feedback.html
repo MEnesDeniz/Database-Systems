@@ -2,6 +2,8 @@
 
 {%block subject%}
 
+<a href="{{ url_for('feedback.add_feedback', ticker = ticker ) }}" class="btn btn-secondary btn-sm"> Add FeedBack </a>
+
 <div class="container">
     <form action="" method="post" name="delete">
         <table class="ui celled table" style="width:100%">
@@ -35,6 +37,8 @@
                     <td>{{feedback[6]}}</td>
                     <td>{{feedback[7]}}</td>
                     <td>{{feedback[8]}}</td>
+                    <td><a href="{{ url_for('feedback.update_feedback', id=feedback[0], ticker=feedback[9]) }}" class="btn btn-secondary btn-sm">
+                        Update </a></td>
                 </tr>
                 {% endfor %}
         </table>
@@ -45,6 +49,7 @@
         </div>
     </form>
 </div>
+
 
 
 {%endblock subject%}

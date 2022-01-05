@@ -47,7 +47,7 @@ INIT_STATEMENTS = [
         name varchar not null,
         surname varchar not null, 
         phone varchar(15) not null,
-        GENDER varchar(1) not null,
+        GENDER VARCHAR not null,
         user_description varchar not null,
         is_admin BOOLEAN NOT NULL DEFAULT FALSE
     )
@@ -58,7 +58,7 @@ INIT_STATEMENTS = [
         nick_name varchar(20) REFERENCES users(nick_name) ON DELETE CASCADE ON UPDATE CASCADE,
         type VARCHAR not null,
         class VARCHAR not null,
-        satisfaction VARCHAR(1)  not null,
+        satisfaction VARCHAR not null,
         online_support VARCHAR(1) not null,
         checking_service VARCHAR(1) not null,
         baggage_handling VARCHAR(1) not null,

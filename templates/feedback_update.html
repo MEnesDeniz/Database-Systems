@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{%block subject%}
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card card-body">
+            <form action="{{ url_for('feedback.update_feedback', id = feedback_info[0][0], ticker = feedback_info[0][9]) }}" method="post"
+                name="airport_update">
+                <div class="form-group">
+                    <input type="text" name="type" value="{{feedback_info[0][2]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="class" value="{{feedback_info[0][3]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="satisfaction" value="{{feedback_info[0][4]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="online_support" value="{{feedback_info[0][5]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="checking_service" value="{{feedback_info[0][6]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="baggage_handling" value="{{feedback_info[0][7]}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="cleanliness" value="{{feedback_info[0][8]}}" class="form-control">
+                </div>
+
+                <button class="btn btn-primary btn-block">
+                    Save
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{%endblock subject%}
