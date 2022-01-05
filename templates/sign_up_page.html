@@ -1,44 +1,78 @@
 {% extends "layout.html" %}
 
 {%block subject%}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-auto">
+            <div class="card-header">Sign Up</div>
+            <div class="card-body">
+                <form action="{{ url_for('user_authentication.register') }}" method="POST" name="airline_edit">
 
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Sign Up</h3>
-    <div class="box">
-        <form action="{{ url_for('user_authentication.register') }}" method="POST" name="airline_edit">
-            <div class="form-group">
-                <input type="text" class="form-control" name="nick_name" placeholder="nick_name">
+                    <div class="form-group row">
+                        <label for="nick_name" class="col-md-4">Nick Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="nick_name" placeholder="Nick Name" autofocus>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="mail" class="col-md-4">E-mail</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="mail" placeholder="mail">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="password" class="col-md-4">Password</label>
+                        <div class="col-md-8">
+                            <input type="password" class="form-control" name="password" placeholder="password">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="name" class="col-md-4">Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="name" placeholder="name">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="surname" class="col-md-4">Surname</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="surname" placeholder="name">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="phone_number" class="col-md-4">Phone Number</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="phone_number" placeholder="Phone Number">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="gender" class="col-Gender-4">Gender</label>
+                        <div class="col-md-8">
+                            <input type="radio" id="gender" name="gender" value="m" checked> Male<br>
+                            <input type="radio" id="gender" name="gender" value="f" checked> Female<br>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="habits" class="col-Gender-4">Flight Habits</label>
+                        <div class="col-md-8">
+                            <input type="radio" id="desc" name="habit" value="3" checked> Often<br>
+                            <input type="radio" id="desc" name="habit" value="2" checked> From Time to Time<br>
+                            <input type="radio" id="desc" name="habit" value="1" checked> Rarerly<br>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block">
+                        Sign Up
+                    </button>
+                </form>
             </div>
-        
-        
-            <div class="form-group">
-                <input type="text" class="form-control" name="mail" placeholder="mail">
-            </div>
-        
-            <div class="form-group">
-                <input type="text" class="form-control" name="name" placeholder="name">
-            </div>
-        
-            <div class="form-group">
-                <input type="text" class="form-control" name="password" placeholder="password">
-            </div>
-        
-            <div class="form-group">
-                <input type="text" class="form-control" name="phone_number" placeholder="phone_number">
-            </div>
-        
-            <div class="form-group">
-                <input type="text" class="form-control" name="job_title" placeholder="job_title">
-            </div>
-        
-            <div class="form-group">
-                <input type="text" class="form-control" name="affiliation" placeholder="affiliation">
-            </div>
-            <button class="btn btn-primary btn-block">
-                Sign Up
-            </button>
-        </form>
+        </div>
     </div>
 </div>
 {%endblock subject%}
-

@@ -41,21 +41,29 @@ INIT_STATEMENTS = [
     """
     create table if not exists users(
         user_id serial primary key,
-        nick_name varchar not null,
-        mail varchar(30) not null,
-        name varchar not null,
+        nick_name varchar(20) unique not null,
+        mail varchar(30) unique not null,
         password varchar not null,
-        phone_number char(11) not null,
-        job_title varchar not null,
-        affiliation varchar not null,
-        user_type int not null
+        name varchar not null,
+        surname varchar not null, 
+        phone varchar(15) not null,
+        GENDER varchar(1) not null,
+        user_description varchar not null,
+        is_admin BOOLEAN NOT NULL DEFAULT FALSE
     )
     """,
     """
-    create table if not exists deneme(
+    create table if not exists feedback(
         id serial primary key,
-        date DATE not null DEFAULT CURRENT_DATE,
-        dep_time VARCHAR (5) NOT NULL
+        nick_name varchar(20) REFERENCES users(nick_name) ON DELETE CASCADE ON UPDATE CASCADE,
+        type VARCHAR not null,
+        class VARCHAR not null,
+        satisfaction VARCHAR(1)  not null,
+        online_support VARCHAR(1) not null,
+        checking_service VARCHAR(1) not null,
+        baggage_handling VARCHAR(1) not null,
+        cleanliness VARCHAR(1) not null,
+        airline_ticker VARCHAR REFERENCES airlines(ticker) ON DELETE CASCADE ON UPDATE CASCADE
     )
     """
 ]

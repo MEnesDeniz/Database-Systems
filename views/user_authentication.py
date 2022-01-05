@@ -40,17 +40,17 @@ def register():
     if request.method == 'POST':
         nick_name = request.form['nick_name']
         mail = request.form['mail']
-        name = request.form['name']
         password = request.form['password']
+        name = request.form['name']
+        surname = request.form['surname']
         phone_number = request.form['phone_number']
-        job_title = request.form['job_title']
-        affiliated_company = request.form['affiliation']
-        user_type = 0
+        gender = request.form['gender']
+        habits = request.form['habit']
         connection = db.connect(os.getenv("DATABASE_URL"))
         cur = connection.cursor()
 
-        cur.execute("INSERT INTO users(nick_name,mail,name,password,phone_number,job_title,affiliation,user_type) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (
-            nick_name, mail, name, password, phone_number, job_title, affiliated_company, user_type))
+        cur.execute("INSERT INTO users(nick_name,mail,password, name, surname, phone , GENDER, user_description) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (
+            nick_name, mail, password, name, surname, phone_number, gender,habits ))
         connection.commit()
         cur.close()
         return redirect(url_for('user_authentication.login'))

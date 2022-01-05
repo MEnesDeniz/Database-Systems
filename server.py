@@ -7,6 +7,7 @@ from views.airlines import airlines
 from views.flights import flights
 from views.airports import airports
 from views.user_authentication import user_authentication
+from views.feedback import feedback
 
 
 app = Flask(__name__)
@@ -16,6 +17,7 @@ app.register_blueprint(airports)
 app.register_blueprint(airlines)
 app.register_blueprint(flights)
 app.register_blueprint(user_authentication)
+app.register_blueprint(feedback)
 
 HEROKU_LAUNCH = False
 
