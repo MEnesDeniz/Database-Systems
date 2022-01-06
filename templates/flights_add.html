@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{%block subject%}
+<form action="{{url_for('flights.add_flight', airport_code = airport_code)}}" method="post" name="flights_add">
+    <div class="form-inline">
+        <input type="date" class="form-control" name="date" placeholder="Date">
+
+        <input type="text" class="input" name="airline_ticker" placeholder="Airline Code">
+
+        <input type="text" class="input" name="flight_number" placeholder="Flight Number">
+
+        <input type="text" class="input" name="tail_number" placeholder="Tail Number">
+
+        <input type="text" class="input" name="starting_airport" placeholder="Starting Location">
+
+        <input type="text" class="input" name="destination_airport" placeholder="Destination Location">
+
+        <input type="time" class="form-control" name="dep_time" placeholder="Departure Time">
+
+        <input type="time" class="form-control" name="arriv_time" placeholder="Arrival Time">
+
+        <input type="text" class="input" name="distance" placeholder="Distance">
+    </div>
+    <button class="btn btn-primary btn-block">
+        Save
+    </button>
+</form>
+
+{%endblock subject%}

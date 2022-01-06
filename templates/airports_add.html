@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{%block subject%}
+
+<form action="{{url_for('airports.add_airport')}}" method="post" name="airports_edit">
+    <div class="form-inline">
+        <input type="text" class="input" name="airport_code" placeholder="Enter Airport Code">
+
+        <input type="text" class="input" name="airport_name" placeholder="Enter Airport Name">
+
+        <input type="text" class="input" name="city" placeholder="Enter City">
+
+        <input type="text" class="input" name="state" placeholder="Enter State">
+
+        <input type="text" class="input" name="country" placeholder="Enter Country">
+
+        <input type="text" class="input" name="latitude" placeholder="Enter Latitude">
+
+        <input type="text" class="input" name="longitude" placeholder="Enter Longitude">
+
+    </div>
+    <button class="btn btn-primary btn-block">
+        Save
+    </button>
+</form>
+
+{%endblock subject%}

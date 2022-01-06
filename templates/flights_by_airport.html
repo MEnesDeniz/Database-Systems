@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{%block subject%}
+
+
+<a href="{{ url_for('flights.add_flight', airport_code = airport_code ) }}" class="btn btn-secondary btn-sm"> Add Flight </a>
+
+<div class="container">
+    <form action="" method="post" name="flights_airport">
+        <table class="ui celled table" style="width:100%">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Airline Firm</th>
+                    <th scope="col">Flight Number</th>
+                    <th scope="col">Tail Number</th>
+                    <th scope="col">Starting Airport</th>
+                    <th scope="col">Destination Airport</th>
+                    <th scope="col">Departure Time</th>
+                    <th scope="col">Arrival Time</th>
+                    <th scope="col">Distance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for flights in flight_list %}
+                <tr>
+                    <td>
+                        <label class="checkbox">
+                            <input type="checkbox" name="flight_keys" value="{{ flights[0] }}" />
+                        </label>
+                        <a href="{{ url_for('flights.flights_page', flight_keys=flights[0], airport_code = airport_code) }}"></a>
+                    </td>
+                    <td>{{flights[1]}}</td>
+                    <td>{{flights[2]}}</td>
+                    <td>{{flights[3]}}</td>
+                    <td>{{flights[4]}}</td>
+                    <td>{{flights[5]}}</td>
+                    <td>{{flights[6]}}</td>
+                    <td>{{flights[7]}}</td>
+                    <td>{{flights[8]}}</td>
+                    <td>{{flights[9]}}</td>
+                    <td><a href="{{ url_for('flights.update_flight', id = flights[0], airport_code = flights[5]) }}"
+                            class="btn btn-secondary btn-sm">
+                            Update </a></td>
+                </tr>
+                {% endfor %}
+        </table>
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-danger is-small">Delete</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+{%endblock subject%}

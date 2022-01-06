@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-4 offset-md-4">
         <div class="card card-body">
-            <form action="{{ url_for('flights.update_flight', id = flights_info[0][0]) }}" method="post"
+            <form action="{{ url_for('flights.update_flight', id = flights_info[0][0], airport_code = flights_info[0][5]) }}" method="post"
                 name="airport_update">
                 <div class="form-group">
                     <input type="date" name="date" value="{{flights_info[0][1]}}" class="form-control">

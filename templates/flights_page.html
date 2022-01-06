@@ -3,36 +3,7 @@
 {%block subject%}
 
 
-
-<form action="{{url_for('flights.add_flight')}}" method="post" name="flights_edit">
-  <div class="form-inline">
-    <input type="date" class="form-control" name="date" placeholder="Date">
-
-    <input type="text" class="input" name="airline_ticker" placeholder="Airline Code">
-
-    <input type="text" class="input" name="flight_number" placeholder="Flight Number">
-
-    <input type="text" class="input" name="tail_number" placeholder="Tail Number">
-
-    <input type="text" class="input" name="starting_airport" placeholder="Starting Location">
-
-    <input type="text" class="input" name="destination_airport" placeholder="Destination Location">
-
-    <input type="time" class="form-control" name="dep_time" placeholder="Departure Time">
-
-    <input type="time" class="form-control" name="arriv_time" placeholder="Arrival Time">
-
-    <input type="text" class="input" name="distance" placeholder="Distance">
-
-
-  </div>
-  <button class="btn btn-primary btn-block">
-    Save
-  </button>
-</form>
-
 <div class="container">
-<form action="" method="post" name="flights_x">
   <table class="ui celled table" style="width:100%">
     <thead>
       <tr>
@@ -52,12 +23,6 @@
       {% for flight_keys, date, airline_ticker, flight_number, tail_number, starting_airport,
       destination_airport, scheduled_departure, scheduled_arrival, distance in list_flights %}
       <tr>
-        <td>
-          <label class="checkbox">
-            <input type="checkbox" name="flight_keys" value="{{ flight_keys }}" />
-          </label>
-          <a href="{{ url_for('flights.flights_page', flight_keys=flight_keys) }}"></a>
-        </td>
         <td>{{date}}</td>
         <td>{{airline_ticker}}</td>
         <td>{{flight_number}}</td>
@@ -67,16 +32,8 @@
         <td>{{scheduled_departure}}</td>
         <td>{{scheduled_arrival}}</td>
         <td>{{distance}}</td>
-        <td><a href="{{ url_for('flights.update_flight', id = flight_keys) }}" class="btn btn-secondary btn-sm">
-          Update </a></td>
       </tr>
       {% endfor %}
   </table>
-  <div class="field is-grouped">
-    <div class="control">
-      <button class="button is-danger is-small">Delete</button>
-    </div>
-  </div>
-</form>
 </div>
 {%endblock subject%}

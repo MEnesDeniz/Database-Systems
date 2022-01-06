@@ -2,17 +2,7 @@
 
 {%block subject%}
 
-<form action="{{url_for('airlines.add_airline')}}" method="post" name="airline_edit">
-  <div class="form-group">
-    <input type="text" class="form-control" name="airline_ticker" placeholder="Airline Identifier">
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control" name="airline_name" placeholder="Airline Name">
-  </div>
-  <button class="btn btn-primary btn-block">
-    Save
-  </button>
-</form>
+<a href="{{ url_for('airlines.add_airline') }}" class="btn btn-secondary btn-sm"> Add Airlines </a>
 
 <div class="container">
   <form action="" method="post" name="airline_delete">
