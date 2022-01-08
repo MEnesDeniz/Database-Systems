@@ -1,23 +1,26 @@
 {% extends "layout.html" %}
 
 {%block subject%}
+
 <div class="row justify-content-center" style="margin-top: 5%;">
     <div class="col-md-6">
-        <div class="card-header">Add Flights
+        <div class="card-header">Flight Update
             <div class="card">
                 <form
-                    action="{{url_for('flights.add_flight', airport_code = airport_code)}}"
-                    method="post" name="flights_add">
+                    action="{{ url_for('flights.update_flight', id = flights_info[0][0], airport_code = flights_info[0][5])}}"
+                    method="post" name="flights_update">
 
                     <div class="form-group row">
                         <label for="date" class="col-md-4 col-form-label">Date</label>
                         <div class="col-sm-6">
-                            <input type="date" class="form-control" name="date" placeholder="date" required="required">
+                            <input type="date" class="form-control" name="date" value="{{flights_info[0][1]}}"
+                                required="required">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="airline_ticker" class="col-md-4 col-form-label">Airline Code</label>
+                        <label for="airline_ticker" class="col-md-4 col-form-label">Airline Code Previous:
+                            {{flights_info[0][2]}}</label>
                         <div class="col-sm-6">
                             <select id="airline_ticker" class="form-control" name="airline_ticker">
                                 {% for a in all_tickers%}
@@ -30,7 +33,7 @@
                     <div class="form-group row">
                         <label for="flight_number" class="col-md-4 col-form-label">Flight Number</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="flight_number" placeholder="Flight Number"
+                            <input type="text" class="form-control" name="flight_number" value="{{flights_info[0][3]}}"
                                 required="required">
                         </div>
                     </div>
@@ -38,14 +41,15 @@
                     <div class="form-group row">
                         <label for="tail_number" class="col-md-4 col-form-label">Tail Number</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="tail_number" placeholder="Tail Number"
+                            <input type="text" class="form-control" name="tail_number" value="{{flights_info[0][4]}}"
                                 required="required">
                         </div>
                     </div>
 
 
                     <div class="form-group row">
-                        <label for="destination_airport" class="col-md-4 col-form-label">Destination Airport</label>
+                        <label for="destination_airport" class="col-md-4 col-form-label">Destination Airport Previous:
+                            {{flights_info[0][6]}}</label>
                         <div class="col-sm-6">
                             <select id="destination_airport" class="form-control" name="destination_airport">
                                 {% for a in all_destinations%}
@@ -58,7 +62,7 @@
                     <div class="form-group row">
                         <label for="dep_time" class="col-md-4 col-form-label">Departure Time</label>
                         <div class="col-sm-6">
-                            <input type="time" class="form-control" name="dep_time" placeholder="Departure Time"
+                            <input type="time" class="form-control" name="dep_time" value="{{flights_info[0][7]}}"
                                 required="required">
                         </div>
                     </div>
@@ -66,7 +70,7 @@
                     <div class="form-group row">
                         <label for="arriv_time" class="col-md-4 col-form-label">Arrival Time</label>
                         <div class="col-sm-6">
-                            <input type="time" class="form-control" name="arriv_time" placeholder="Arrival Time"
+                            <input type="time" class="form-control" name="arriv_time" value="{{flights_info[0][8]}}"
                                 required="required">
                         </div>
                     </div>
@@ -74,8 +78,8 @@
                     <div class="form-group row">
                         <label for="distance" class="col-md-4 col-form-label">Distance</label>
                         <div class="col-sm-6">
-                            <input type="number" class="form-control" name="distance" placeholder="Distance"
-                                required="required">
+                            <input type="number" class="form-control" name="distance" value="{{flights_info[0][9]}}"
+                                class="form-control" required="required">
                         </div>
                     </div>
 
@@ -88,7 +92,4 @@
     </div>
 
 </div>
-
-
-
 {%endblock subject%}

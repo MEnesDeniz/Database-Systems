@@ -22,7 +22,6 @@ def login():
         pw = sha256(password.encode()).hexdigest()
         connection = db.connect(os.getenv("DATABASE_URL"))
         cur = connection.cursor()
-
         cur.execute("SELECT * FROM users WHERE mail = %s and password = %s", (mail, pw))
         existing_account = cur.fetchone()
         cur.close()
@@ -38,7 +37,7 @@ def register():
     if request.method == 'GET':
         return render_template("sign_up_page.html")
     if request.method == 'POST':
-        nick_name = request.form['nick_name']
+        user_name = request.form['user_name']
         mail = request.form['mail']
         password = request.form['password']
         name = request.form['name']
@@ -51,8 +50,8 @@ def register():
         connection = db.connect(os.getenv("DATABASE_URL"))
         cur = connection.cursor()
 
-        cur.execute("INSERT INTO users(nick_name,mail,password, name, surname, phone , GENDER, user_description) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (
-            nick_name, mail, pw_hashed, name, surname, phone_number, gender,habits ))
+        cur.execute("INSERT INTO users(user_name,mail,password, name, surname, phone , GENDER, user_description) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (
+            user_name, mail, pw_hashed, name, surname, phone_number, gender,habits ))
         connection.commit()
         cur.close()
         return redirect(url_for('user_authentication.login'))

@@ -16,7 +16,7 @@ INIT_STATEMENTS = [
     create table if not exists airports(
         id serial primary key,
         airport_code VARCHAR(3) unique,
-        airport_name VARCHAR(64) not null,
+        airport_name VARCHAR not null,
         city VARCHAR(32) not null,
         state VARCHAR(2) not null,
         country VARCHAR not null,
@@ -41,7 +41,7 @@ INIT_STATEMENTS = [
     """
     create table if not exists users(
         user_id serial primary key,
-        nick_name varchar(20) unique not null,
+        user_name varchar(20) unique not null,
         mail varchar(30) unique not null,
         password varchar not null,
         name varchar not null,
@@ -55,7 +55,7 @@ INIT_STATEMENTS = [
     """
     create table if not exists feedback(
         id serial primary key,
-        nick_name varchar(20) REFERENCES users(nick_name) ON DELETE CASCADE ON UPDATE CASCADE,
+        user_name varchar(20) REFERENCES users(user_name) ON DELETE CASCADE ON UPDATE CASCADE,
         type VARCHAR not null,
         class VARCHAR not null,
         satisfaction VARCHAR not null,

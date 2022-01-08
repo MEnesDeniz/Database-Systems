@@ -45,7 +45,7 @@ def add_feedback(ticker):
         cleanliness = request.form["cleanliness"]
 
         cur.execute(
-            "INSERT INTO feedback(nick_name,type,class,satisfaction,online_support,checking_service,baggage_handling,cleanliness,airline_ticker) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            "INSERT INTO feedback(user_name,type,class,satisfaction,online_support,checking_service,baggage_handling,cleanliness,airline_ticker) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
             (
                 session["username"],
                 type,

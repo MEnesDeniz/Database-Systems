@@ -50,13 +50,17 @@ def add_flight(airport_code):
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
-        return render_template("flights_add.html", airport_code=airport_code)
+        cur.execute("SELECT DISTINCT destination_airport FROM flights")
+        all_destinations = cur.fetchall()
+        cur.execute("SELECT DISTINCT airline_ticker FROM flights")
+        all_tickers = cur.fetchall()
+        cur.close()
+        return render_template("flights_add.html", airport_code=airport_code, all_destinations = all_destinations, all_tickers = all_tickers)
     if request.method == "POST":
         date = request.form["date"]
         airline_ticker = request.form["airline_ticker"]
         flight_number = request.form["flight_number"]
         tail_number = request.form["tail_number"]
-        starting_airport = request.form["starting_airport"]
         destination_airport = request.form["destination_airport"]
         departure_time = request.form["dep_time"]
         arrival_time = request.form["arriv_time"]
@@ -68,7 +72,7 @@ def add_flight(airport_code):
                 airline_ticker,
                 flight_number,
                 tail_number,
-                starting_airport,
+                airport_code,
                 destination_airport,
                 departure_time,
                 arrival_time,
@@ -89,14 +93,17 @@ def update_flight(id, airport_code):
     if request.method == "GET":
         cur.execute("SELECT * FROM flights WHERE id = {0}".format(id))
         flights_info = cur.fetchall()
+        cur.execute("SELECT DISTINCT destination_airport FROM flights")
+        all_destinations = cur.fetchall()
+        cur.execute("SELECT DISTINCT airline_ticker FROM flights")
+        all_tickers = cur.fetchall()
         cur.close()
-        return render_template("flight_update.html", flights_info=flights_info)
+        return render_template("flights_update.html", flights_info=flights_info , all_destinations = all_destinations, all_tickers = all_tickers)
     if request.method == "POST":
         date = request.form["date"]
         airline_ticker = request.form["airline_ticker"]
         flight_number = request.form["flight_number"]
         tail_number = request.form["tail_number"]
-        starting_airport = request.form["starting_airport"]
         destination_airport = request.form["destination_airport"]
         departure_time = request.form["dep_time"]
         arrival_time = request.form["arriv_time"]
@@ -108,7 +115,7 @@ def update_flight(id, airport_code):
                 airline_ticker,
                 flight_number,
                 tail_number,
-                starting_airport,
+                airport_code,
                 destination_airport,
                 departure_time,
                 arrival_time,
