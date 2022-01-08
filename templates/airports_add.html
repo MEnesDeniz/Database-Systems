@@ -2,26 +2,84 @@
 
 {%block subject%}
 
-<form action="{{url_for('airports.add_airport')}}" method="post" name="airports_edit">
-    <div class="form-inline">
-        <input type="text" class="input" name="airport_code" placeholder="Enter Airport Code">
 
-        <input type="text" class="input" name="airport_name" placeholder="Enter Airport Name">
+<div class="row justify-content-center" style="margin-top: 5%;">
+    <div class="col-md-6">
+      <div class="card-header">Add Airport
+        <div class="card">
+          <form action="{{url_for('airports.add_airport')}}" method="post" name="airport_add">
+  
+            <div class="form-group row">
+              <label for="airport_code" class="col-md-4 col-form-label">Airport Code Code</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="airport_code" placeholder="Enter Airport Code"
+                  required="required">
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="airport_name" class="col-md-4 col-form-label">Airport Name</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control"name="airport_name" placeholder="Enter Airport Name"
+                  required="required">
+              </div>
+            </div>
 
-        <input type="text" class="input" name="city" placeholder="Enter City">
+            <div class="form-group row">
+                <label for="city" class="col-md-4 col-form-label">City</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control"name="city" placeholder="Enter City"
+                    required="required">
+                </div>
+              </div>
 
-        <input type="text" class="input" name="state" placeholder="Enter State">
+            <div class="form-group row">
+                <label for="state" class="col-md-4 col-form-label">State</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control"name="state" placeholder="Enter State"
+                    required="required">
+                </div>
+              </div>
 
-        <input type="text" class="input" name="country" placeholder="Enter Country">
+            <div class="form-group row">
+                <label for="country" class="col-md-4 col-form-label">Country</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control"name="country" placeholder="Enter Country"
+                    required="required">
+                </div>
+              </div>
 
-        <input type="text" class="input" name="latitude" placeholder="Enter Latitude">
+            <div class="form-group row">
+                <label for="airport_name" class="col-md-4 col-form-label">Airport Name</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control"name="airport_name" placeholder="Enter Airport Name"
+                    required="required">
+                </div>
+              </div>
 
-        <input type="text" class="input" name="longitude" placeholder="Enter Longitude">
+            <div class="form-group row">
+                <label for="latitude" class="col-md-4 col-form-label">Latitude</label>
+                <div class="col-sm-6">
+                  <input type="number" class="form-control"name="latitude" placeholder="Enter Latitude"
+                    required="required">
+                </div>
+              </div>
 
+            <div class="form-group row">
+                <label for="longitude" class="col-md-4 col-form-label">Longitude</label>
+                <div class="col-sm-6">
+                  <input type="number" class="form-control"name="longitude" placeholder="Enter Longitude"
+                    required="required">
+                </div>
+              </div>
+
+            <button class="btn btn-primary btn-block">
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-    <button class="btn btn-primary btn-block">
-        Save
-    </button>
-</form>
+  </div>
 
 {%endblock subject%}

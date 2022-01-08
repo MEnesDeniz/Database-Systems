@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, url_for, session
 import math
 import psycopg2 as db
 import os
@@ -63,6 +63,9 @@ def airports_page(current_page):
 
 @airports.route("/add_airport", methods=["POST", "GET"])
 def add_airport():
+    if not "id" in session:
+        return redirect(url_for("user_authentication.login"))
+
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
@@ -86,6 +89,8 @@ def add_airport():
 
 @airports.route("/airport_update/<id>", methods=["POST", "GET"])
 def update_airport(id):
+    if not "id" in session:
+        return redirect(url_for("user_authentication.login"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":

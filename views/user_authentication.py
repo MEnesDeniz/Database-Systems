@@ -1,4 +1,4 @@
-from flask import Blueprint, request,   render_template, redirect, url_for, session
+from flask import Blueprint, request,   render_template, redirect, url_for, session, flash
 from hashlib import sha256
 import psycopg2 as db
 import os
@@ -56,3 +56,11 @@ def register():
         connection.commit()
         cur.close()
         return redirect(url_for('user_authentication.login'))
+
+@user_authentication.route("/logout")
+def logout():
+    session['loggedin'] = False
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    return redirect(url_for('home_page'))

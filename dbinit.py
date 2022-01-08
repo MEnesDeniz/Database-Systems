@@ -8,20 +8,20 @@ INIT_STATEMENTS = [
     """
     create table if not exists airlines(
         id serial primary key,
-        ticker VARCHAR unique,
-        name VARCHAR not null
+        ticker VARCHAR(2) unique,
+        name VARCHAR(32) not null
     )
     """,
     """
     create table if not exists airports(
         id serial primary key,
-        airport_code VARCHAR unique,
-        airport_name VARCHAR not null,
-        city VARCHAR not null,
-        state VARCHAR not null,
+        airport_code VARCHAR(3) unique,
+        airport_name VARCHAR(64) not null,
+        city VARCHAR(32) not null,
+        state VARCHAR(2) not null,
         country VARCHAR not null,
-        latitude VARCHAR not null,
-        longitude VARCHAR not null
+        latitude NUMERIC not null,
+        longitude NUMERIC not null
     )
     """,
     """
@@ -30,12 +30,12 @@ INIT_STATEMENTS = [
         date DATE not null DEFAULT CURRENT_DATE,
         airline_ticker VARCHAR REFERENCES airlines(ticker) ON DELETE CASCADE ON UPDATE CASCADE,
         flight_number VARCHAR not null,
-        tail_number VARCHAR not null,
+        tail_number VARCHAR(6) not null,
         starting_airport VARCHAR REFERENCES airports(airport_code)  ON DELETE CASCADE ON UPDATE CASCADE,
         destination_airport varchar REFERENCES airports(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
         scheduled_departure VARCHAR (5) NOT NULL,
         scheduled_arrival VARCHAR (5) NOT NULL,
-        distance  VARCHAR NOT NULL
+        distance  NUMERIC NOT NULL
     )
     """,
     """

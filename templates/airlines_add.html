@@ -4,28 +4,31 @@
 
 <div class="row justify-content-center" style="margin-top: 5%;">
   <div class="col-md-6">
-    <div class="card">
-      <form action="{{url_for('airlines.add_airline')}}" method="post" name="airline_edit">
+    <div class="card-header">Add Airlines
+      <div class="card">
+        <form action="{{url_for('airlines.add_airline')}}" method="post" name="airline_edit">
 
-        <div class="form-group row">
-          <label for="airline_ticker" class="col-md-4 col-form-label">Airline Ticker</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" name="airline_ticker" placeholder="Airline Identifier"
-              required="required">
+          <div class="form-group row">
+            <label for="airline_ticker" class="col-md-4 col-form-label">Airline Ticker</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="airline_ticker" placeholder="Airline Identifier"
+                required="required">
+            </div>
           </div>
-        </div>
 
-        <div class="form-group row">
-          <label for="airline_name" class="col-md-4 col-form-label">Airline Name</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" name="airline_name" placeholder="Airline Name" required="required">
+          <div class="form-group row">
+            <label for="airline_name" class="col-md-4 col-form-label">Airline Name</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="airline_name" placeholder="Airline Name"
+                required="required">
+            </div>
           </div>
-        </div>
 
-        <button class="btn btn-primary btn-block">
-          Save
-        </button>
-      </form>
+          <button class="btn btn-primary btn-block">
+            Save
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

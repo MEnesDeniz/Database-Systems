@@ -1,41 +1,100 @@
 {% extends "layout.html" %}
 
 {%block subject%}
+<div class="row justify-content-center" style="margin-top: 5%;">
+    <div class="col-md-6">
+      <div class="card-header"> Update Feedback
+        <div class="card">
+          <form action="{{ url_for('feedback.update_feedback', id = feedback_info[0][0], ticker = feedback_info[0][9]) }}" method="post" name="feedback_update">
+  
+            <div class="form-group row">
+              <label for="type" class="col-md-4 col-form-label">Type</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="type" value="{{feedback_info[0][2]}}" required="required">
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="class" class="col-md-4 col-form-label">Flight Class</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="class" value="{{feedback_info[0][3]}}" class="form-control">
+              </div>
+            </div>
 
-<div class="row">
-    <div class="col-md-4 offset-md-4">
-        <div class="card card-body">
-            <form action="{{ url_for('feedback.update_feedback', id = feedback_info[0][0], ticker = feedback_info[0][9]) }}" method="post"
-                name="airport_update">
-                <div class="form-group">
-                    <input type="text" name="type" value="{{feedback_info[0][2]}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="class" value="{{feedback_info[0][3]}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="satisfaction" value="{{feedback_info[0][4]}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="online_support" value="{{feedback_info[0][5]}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="checking_service" value="{{feedback_info[0][6]}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="baggage_handling" value="{{feedback_info[0][7]}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="cleanliness" value="{{feedback_info[0][8]}}" class="form-control">
-                </div>
-
-                <button class="btn btn-primary btn-block">
-                    Save
-                </button>
-            </form>
+  
+            <div class="form-group row">
+              <label for="satisfaction" class="col-md-4 col-form-label">Satisfied? </label>
+              <div class="col-sm-6">
+                <select id="satisfaction" class="form-control" name="satisfaction">
+                  <option value="satisfied">Satisfied</option>
+                  <option value="dissatisfied">Not Satisfied</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="online_support" class="col-md-4 col-form-label">Rate Online Support</label>
+              <div class="col-sm-6">
+                <select id="online_support" class="form-control" name="online_support">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="checking_service" class="col-md-4 col-form-label">Rate Checking Service</label>
+              <div class="col-sm-6">
+                <select id="checking_service" class="form-control" name="checking_service">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="baggage_handling" class="col-md-4 col-form-label">Rate Baggage Handling</label>
+              <div class="col-sm-6">
+                <select id="baggage_handling" class="form-control" name="baggage_handling">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="cleanliness" class="col-md-4 col-form-label">Cleanliness</label>
+              <div class="col-sm-6">
+                <select id="cleanliness" class="form-control" name="cleanliness">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+  
+            <button class="btn btn-primary btn-block">
+              Save
+            </button>
+          </form>
         </div>
+      </div>
     </div>
-</div>
-
+  </div>
 
 {%endblock subject%}

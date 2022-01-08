@@ -29,6 +29,8 @@ def airline_feedback(ticker):
 
 @feedback.route("/feed_back/add/<ticker>", methods=["GET", "POST"])
 def add_feedback(ticker):
+    if not 'id' in session:
+        return redirect(url_for("user_authentication.login"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
@@ -63,6 +65,8 @@ def add_feedback(ticker):
 
 @feedback.route("/feed_back/update/<ticker>/<id>", methods=["POST", "GET"])
 def update_feedback(id, ticker):
+    if not 'id' in session:
+        return redirect(url_for("user_authentication.login"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":

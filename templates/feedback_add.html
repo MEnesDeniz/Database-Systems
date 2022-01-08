@@ -2,31 +2,101 @@
 
 {%block subject%}
 
-<form action="{{ url_for('feedback.add_feedback', ticker = ticker ) }}" method="post" name="airline_edit">
-  <div class="form-group">
-    <input type="text" class="form-control" name="type" placeholder="type">
+
+<div class="row justify-content-center" style="margin-top: 5%;">
+  <div class="col-md-6">
+    <div class="card-header">Add Feedback
+      <div class="card">
+        <form action="{{ url_for('feedback.add_feedback', ticker = ticker ) }}" method="post" name="feedback_add">
+
+          <div class="form-group row">
+            <label for="type" class="col-md-4 col-form-label">Type</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="type" placeholder="type" required="required">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="class" class="col-md-4 col-form-label">Flight Class</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="class" placeholder="Flight class" required="required">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="satisfaction" class="col-md-4 col-form-label">Satisfied? </label>
+            <div class="col-sm-6">
+              <select id="satisfaction" class="form-control" name="satisfaction">
+                <option value="satisfied">Satisfied</option>
+                <option value="dissatisfied">Not Satisfied</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="online_support" class="col-md-4 col-form-label">Rate Online Support</label>
+            <div class="col-sm-6">
+              <select id="online_support" class="form-control" name="online_support">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="checking_service" class="col-md-4 col-form-label">Rate Checking Service</label>
+            <div class="col-sm-6">
+              <select id="checking_service" class="form-control" name="checking_service">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="baggage_handling" class="col-md-4 col-form-label">Rate Baggage Handling</label>
+            <div class="col-sm-6">
+              <select id="baggage_handling" class="form-control" name="baggage_handling">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="cleanliness" class="col-md-4 col-form-label">Cleanliness</label>
+            <div class="col-sm-6">
+              <select id="cleanliness" class="form-control" name="cleanliness">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <input type="text" class="form-control" name="class" placeholder="class">
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control" name="satisfaction" placeholder="satisfaction">
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control" name="online_support" placeholder="online_support">
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control" name="checking_service" placeholder="checking_service">
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control" name="baggage_handling" placeholder="baggage_handling">
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control" name="cleanliness" placeholder="cleanliness">
-  </div>
-  <button class="btn btn-primary btn-block">
-    Save
-  </button>
-</form>
+</div>
+
 
 {%endblock subject%}

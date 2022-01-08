@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, url_for,session
 import psycopg2 as db
 import os
 
@@ -45,6 +45,8 @@ def airport_flights(airport_code):
 
 @flights.route("/add_flight/<airport_code>", methods=["POST", "GET"])
 def add_flight(airport_code):
+    if not 'id' in session:
+        return redirect(url_for("user_authentication.login"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
@@ -80,6 +82,8 @@ def add_flight(airport_code):
 
 @flights.route("/flight_update/<airport_code>/<id>", methods=["POST", "GET"])
 def update_flight(id, airport_code):
+    if not 'id' in session:
+        return redirect(url_for("user_authentication.login"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
