@@ -3,6 +3,7 @@ import psycopg2 as db
 import math
 import os
 
+
 def createList(r1, r2):
   
     # Testing if range r1 and r2 
@@ -83,89 +84,39 @@ def validate_flight(form):
 flights = Blueprint("flights", import_name=__name__, template_folder="templates")
 
 
-@flights.route("/flights/page", defaults={"current_page": 1})
-@flights.route("/flights/page/<int:current_page>", methods=["GET", "POST"])
-def flights_page(current_page):
+@flights.route("/flights", methods=["GET", "POST"])
+def flights_page():
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
         cur.execute("SELECT DISTINCT airport_code FROM airports ORDER BY airport_code ")
         all_destinations = cur.fetchall()
+        list_flights = ()
         cur.close()
-
-        cur = connection.cursor()
-        per_page = 50
-        cur.execute("SELECT count(*) FROM FLIGHTS")
-        total = cur.fetchone()[0]
-        cur.close()
-
-        page_count = math.ceil(total / per_page)
-        offset = per_page * (current_page - 1)
-        if page_count > 1:
-            cur = connection.cursor()
-            cur.execute(
-                "SELECT * FROM flights order by DATE, airline_ticker desc LIMIT {} OFFSET {}".format(
-                    per_page, offset
-                )
-            )
-            cur.close()
-            if current_page == 1:
-                page_list = (
-                    current_page,
-                    current_page + 1,
-                    current_page + 2,
-                    page_count,
-                )
-            elif 1 < current_page < page_count - 1:
-                page_list = (
-                    current_page - 1,
-                    current_page,
-                    current_page + 1,
-                    page_count,
-                )
-            elif current_page == page_count - 1:
-                page_list = (
-                    current_page - 3,
-                    current_page - 2,
-                    current_page - 1,
-                    page_count,
-                )
-            elif current_page == page_count:
-                page_list = (
-                    current_page - 3,
-                    current_page - 2,
-                    current_page - 1,
-                    current_page,
-                )
-        else:
-            r1 = 1
-            r2 = 5
-            page_list = createList(r1,r2)
-            cur = connection.cursor()
-            cur.execute("SELECT * FROM flights")
-
-        list_flights = cur.fetchall()
-        cur.close()
-        return render_template("flights_page.html", list_flights=list_flights ,current_page = page_list, all_destinations = all_destinations)
-
-
-@flights.route("/flights/filtered", methods=["POST"])
-def filtered_flight():
-    current_page = 1
-    connection = db.connect(os.getenv("DATABASE_URL"))
-    cur = connection.cursor()
+        return render_template("flights_page.html", list_flights=list_flights , all_destinations = all_destinations)
     if request.method == "POST":
         cur.execute("SELECT DISTINCT airport_code FROM airports ORDER BY airport_code ")
-        all_destinations = cur.fetchone()
+        all_destinations = cur.fetchall()
 
-        dateS = request.form["date"]
-        startAirport = request.form["starting_airport"]
-        endAirport = request.form["destination_airport"]
-        cur.execute(
-            "(SELECT  * FROM flights WHERE date = %s and starting_aiport = %s and destination", (dateS,startAirport,endAirport))
-        starting_ones = cur.fetchone()
-        cur.close()
-    return render_template("flights_page.html", starting_ones=starting_ones ,current_page = current_page, all_destinations=all_destinations)
+        if request.form['date']:
+            dateS = request.form["date"]
+
+        if request.form["starting_airport"]:
+            startAirport = request.form["starting_airport"]
+
+        if request.form["starting_airport"]:
+            endAirport = request.form["destination_airport"]
+
+        cur.execute(("SELECT * FROM flights WHERE date = %s and starting_airport = %s and destination_airport = %s"),(dateS,startAirport,endAirport))
+        x_list_flights = cur.fetchall()
+
+        if isinstance(x_list_flights, type(None)):
+            list_flights = ()
+        else:
+            list_flights = x_list_flights
+        return render_template("flights_page.html", list_flights=list_flights , all_destinations = all_destinations)
+
+
 
 
 
