@@ -3,6 +3,63 @@ import psycopg2 as db
 import os
 
 
+def validate_flight(form):
+    form.data = {}
+    form.errors = {}
+    # Airport_Code
+    form_airport_code = form.get("airport_code").strip()
+    if len(form_airport_code) != 3:
+        form.errors["airport_code"] = "Airport code must be 3 character."
+    else:
+        form.data["airport_code"] = form_airport_code
+    # Airport_Name
+    form_airport_name = form.get("airport_name", "").strip()
+    if len(form_airport_name) == 0:
+        form.errors["airport_name"] = "Airport name can not be left blank."
+    else:
+        form.data["airport_name"] = form_airport_name
+    # City
+    form_city = form.get("city", "").strip()
+    if len(form_city) == 0:
+        form.errors["city"] = "City can not be left blank."
+    elif len(form_city) >= 33:
+        form.errors["city"] = "City can not be higher 32 characters."
+    else:
+        form.data["city"] = form_city
+    # State
+    form_state = form.get("state", "").strip()
+    if len(form_state) != 2:
+        form.errors["state"] = "State must be 2 character."
+    else:
+        form.data["state"] = form_state
+    # Country
+    form_country = form.get("country", "").strip()
+    if len(form_country) == 0:
+        form.errors["country"] = "Country can not be left blank."
+    else:
+        form.data["country"] = form_country
+    # Latitude
+    form_latitude = form.get("latitude").strip("-")
+    x = form_latitude.replace(".", "", 1).isdigit()
+    if not form_latitude:
+        form.data["latitude"] = None
+    elif x == False:
+        form.errors["latitude"] = "Latitude must be float."
+    else:
+        form.data["latitude"] = form_latitude
+    # Longtitude
+    form_longitude = form.get("longitude").strip("-")
+    y = form_longitude.replace(".", "", 1).isdigit()
+    if not form_longitude:
+        form.data["latitude"] = None
+    elif y == False:
+        form.errors["longitude"] = "Longitude must be float."
+    else:
+        form.data["longitude"] = form_longitude
+    return len(form.errors) == 0
+
+    
+
 flights = Blueprint("flights", import_name=__name__, template_folder="templates")
 
 

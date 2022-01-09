@@ -30,7 +30,7 @@
           <a class="nav-link" href="{{url_for('airlines.airlines_page')}}">Airlines</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('airports.airports_page')}}">Airports</a>
+          <a class="nav-link" href="{{url_for('airports.airports_page', current_page = 1 ) }}">Airports</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('flights.flights_page') }}">Flights</a>

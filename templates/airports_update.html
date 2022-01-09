@@ -3,75 +3,122 @@
 {%block subject%}
 
 <div class="row justify-content-center" style="margin-top: 5%;">
-    <div class="col-md-6">
-      <div class="card-header">Update Airport
-        <div class="card">
-          <form action="{{ url_for('airports.update_airport', id = airports_info[0][0]) }}" method="post" name="airport_update">
-  
+  <div class="col-md-6">
+    <div class="card-header">Update Airport
+      <div class="card">
+        <form action="{{ url_for('airports.update_airport', id = id) }}" method="post" name="airport_update">
+
+          <div class="field">
             <div class="form-group row">
-              <label for="airport_code" class="col-md-4 col-form-label">Airport Code Code</label>
+              <label for="airport_code" class="col-md-4 col-form-label">Airport Code</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="airport_code" value="{{airports_info[0][1]}}"
+                <input type="text" class="form-control" name="airport_code" value="{{ values['airport_code'] }}"
                   required="required">
               </div>
             </div>
-  
+            {% if 'airport_code' in values.errors %}
+            <p style="color:red;">
+              {{ values.errors['airport_code'] }}
+            </p>
+            {% endif %}
+          </div>
+
+          <div class="field">
             <div class="form-group row">
               <label for="airport_name" class="col-md-4 col-form-label">Airport Name</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control"name="airport_name" value="{{airports_info[0][2]}}"
+                <input type="text" class="form-control" name="airport_name" value="{{ values['airport_name'] }}"
                   required="required">
               </div>
             </div>
+            {% if 'airport_name' in values.errors %}
+            <p style="color:red;">
+              {{ values.errors['airport_name'] }}
+            </p>
+            {% endif %}
+          </div>
 
+          <div class="field">
             <div class="form-group row">
-                <label for="city" class="col-md-4 col-form-label">City</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control"name="city" value="{{airports_info[0][3]}}"
-                    required="required">
-                </div>
+              <label for="city" class="col-md-4 col-form-label">City</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="city" value="{{ values['city'] }}" required="required">
               </div>
+            </div>
+            {% if 'city' in values.errors %}
+            <p style="color:red;">
+              {{ values.errors['city'] }}
+            </p>
+            {% endif %}
+          </div>
 
+          <div class="field">
             <div class="form-group row">
-                <label for="state" class="col-md-4 col-form-label">State</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control"name="state" value="{{airports_info[0][4]}}"
-                    required="required">
-                </div>
+              <label for="state" class="col-md-4 col-form-label">State</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="state" value="{{ values['state'] }}" required="required">
               </div>
+            </div>
+            {% if 'state' in values.errors %}
+            <p style="color:red;">
+              {{ values.errors['state'] }}
+            </p>
+            {% endif %}
+          </div>
 
+          <div class="field">
             <div class="form-group row">
-                <label for="country" class="col-md-4 col-form-label">Country</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control"name="country" value="{{airports_info[0][5]}}"
-                    required="required">
-                </div>
+              <label for="country" class="col-md-4 col-form-label">Country</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="country" value="{{ values['country'] }}"
+                  required="required">
               </div>
+            </div>
+            {% if 'country' in values.errors %}
+            <p style="color:red;">
+              {{ values.errors['country'] }}
+            </p>
+            {% endif %}
+          </div>
 
+          <div class="field">
             <div class="form-group row">
-                <label for="latitude" class="col-md-4 col-form-label">Latitude</label>
-                <div class="col-sm-6">
-                  <input type="number" step="any" class="form-control" name="latitude" value="{{airports_info[0][6]}}"
-                    required="required">
-                </div>
+              <label for="latitude" class="col-md-4 col-form-label">Latitude</label>
+              <div class="col-sm-6">
+                <input type="number" step="any" class="form-control" name="latitude" value="{{ values['latitude'] }}"
+                  required="required">
               </div>
+            </div>
+            {% if 'latitude' in values.errors %}
+            <p style="color:red;">
+              {{ values.errors['latitude'] }}
+            </p>
+            {% endif %}
+          </div>
 
+          <div class="field">
             <div class="form-group row">
-                <label for="longitude" class="col-md-4 col-form-label">Longitude</label>
-                <div class="col-sm-6">
-                  <input type="number" step="any" class="form-control"name="longitude" value="{{airports_info[0][7]}}"
-                    required="required">
-                </div>
+              <label for="longitude" class="col-md-4 col-form-label">Longitude</label>
+              <div class="col-sm-6">
+                <input type="number" step="any" class="form-control" name="longitude" value="{{ values['longitude'] }}"
+                  required="required">
               </div>
+            </div>
+            {% if 'longitude' in values.errors %}
+            <p style="color:red;">
+              {{ values.errors['longitude'] }}
+            </p>
+            {% endif %}
+          </div>
 
-            <button class="btn btn-primary btn-block">
-              Save
-            </button>
-          </form>
-        </div>
+          <button class="btn btn-primary btn-block">
+            Save
+          </button>
+        </form>
       </div>
     </div>
   </div>
+</div>
 
 
 {%endblock subject%}

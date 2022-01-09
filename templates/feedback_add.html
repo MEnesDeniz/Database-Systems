@@ -9,6 +9,7 @@
       <div class="card">
         <form action="{{ url_for('feedback.add_feedback', ticker = ticker ) }}" method="post" name="feedback_add">
 
+          <div class="field">
           <div class="form-group row">
             <label for="type" class="col-md-4 col-form-label">Type</label>
             <div class="col-sm-6">
@@ -18,7 +19,14 @@
               </select>
             </div>
           </div>
+          {% if 'type' in values.errors %}
+          <p style="color:red;">
+            {{ values.errors['type'] }}
+          </p>
+          {% endif %}
+        </div>
 
+        <div class="field">
           <div class="form-group row">
             <label for="class" class="col-md-4 col-form-label">Flight Class</label>
             <div class="col-sm-6">
@@ -29,7 +37,14 @@
               </select>
             </div>
           </div>
+          {% if 'class' in values.errors %}
+          <p style="color:red;">
+            {{ values.errors['class'] }}
+          </p>
+          {% endif %}
+        </div>
 
+        <div class="field">
           <div class="form-group row">
             <label for="satisfaction" class="col-md-4 col-form-label">Satisfied? </label>
             <div class="col-sm-6">
@@ -39,7 +54,14 @@
               </select>
             </div>
           </div>
+          {% if 'satisfaction' in values.errors %}
+          <p style="color:red;">
+            {{ values.errors['satisfaction'] }}
+          </p>
+          {% endif %}
+        </div>
 
+        <div class="field">
           <div class="form-group row">
             <label for="online_support" class="col-md-4 col-form-label">Rate Online Support</label>
             <div class="col-sm-6">
@@ -53,7 +75,14 @@
               </select>
             </div>
           </div>
+          {% if 'online_support' in values.errors %}
+          <p style="color:red;">
+            {{ values.errors['online_support'] }}
+          </p>
+          {% endif %}
+        </div>
 
+        <div class="field">
           <div class="form-group row">
             <label for="checking_service" class="col-md-4 col-form-label">Rate Checking Service</label>
             <div class="col-sm-6">
@@ -67,7 +96,14 @@
               </select>
             </div>
           </div>
+          {% if 'checking_service' in values.errors %}
+          <p style="color:red;">
+            {{ values.errors['checking_service'] }}
+          </p>
+          {% endif %}
+        </div>
 
+        <div class="field">
           <div class="form-group row">
             <label for="baggage_handling" class="col-md-4 col-form-label">Rate Baggage Handling</label>
             <div class="col-sm-6">
@@ -81,7 +117,14 @@
               </select>
             </div>
           </div>
+          {% if 'baggage_handling' in values.errors %}
+          <p style="color:red;">
+            {{ values.errors['baggage_handling'] }}
+          </p>
+          {% endif %}
+        </div>
 
+        <div class="field">
           <div class="form-group row">
             <label for="cleanliness" class="col-md-4 col-form-label">Cleanliness</label>
             <div class="col-sm-6">
@@ -95,6 +138,12 @@
               </select>
             </div>
           </div>
+          {% if 'cleanliness' in values.errors %}
+          <p style="color:red;">
+            {{ values.errors['cleanliness'] }}
+          </p>
+          {% endif %}
+        </div>
 
           <button class="btn btn-primary btn-block">
             Save
