@@ -27,15 +27,14 @@ INIT_STATEMENTS = [
     """
     create table if not exists flights(
         id serial primary key,
-        date DATE not null DEFAULT CURRENT_DATE,
+        date VARCHAR(10) not null DEFAULT CURRENT_DATE,
         airline_ticker VARCHAR REFERENCES airlines(ticker) ON DELETE CASCADE ON UPDATE CASCADE,
         flight_number VARCHAR not null,
         tail_number VARCHAR(6) not null,
         starting_airport VARCHAR REFERENCES airports(airport_code)  ON DELETE CASCADE ON UPDATE CASCADE,
         destination_airport varchar REFERENCES airports(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
         scheduled_departure VARCHAR (5) NOT NULL,
-        scheduled_arrival VARCHAR (5) NOT NULL,
-        distance  NUMERIC NOT NULL
+        scheduled_arrival VARCHAR (5) NOT NULL
     )
     """,
     """
@@ -66,6 +65,7 @@ INIT_STATEMENTS = [
         airline_ticker VARCHAR REFERENCES airlines(ticker) ON DELETE CASCADE ON UPDATE CASCADE
     )
     """
+
 ]
 
 # insert into airlines (ticker,name) values('THY','Turkish Airlines');

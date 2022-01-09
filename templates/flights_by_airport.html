@@ -19,7 +19,6 @@
                     <th scope="col">Destination Airport</th>
                     <th scope="col">Departure Time</th>
                     <th scope="col">Arrival Time</th>
-                    <th scope="col">Distance</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +38,6 @@
                     <td>{{flights[6]}}</td>
                     <td>{{flights[7]}}</td>
                     <td>{{flights[8]}}</td>
-                    <td>{{flights[9]}}</td>
                     <td><a href="{{ url_for('flights.update_flight', id = flights[0], airport_code = flights[5]) }}"
                             class="btn btn-secondary btn-sm">
                             Update </a></td>

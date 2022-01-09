@@ -2,38 +2,89 @@
 
 {%block subject%}
 
+<div class="row justify-content-center" style="margin-top: 5%;">
+  <div class="col-md-6">
+    <div class="card-header">Filtered Search
+      <div class="card">
+        <form action="{{ url_for('flights.filtered_flight') }}" method="post" name="filter">
 
-<div class="container">
-  <table class="ui celled table" style="width:100%">
-    <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col">Date</th>
-        <th scope="col">Airline Firm</th>
-        <th scope="col">Flight Number</th>
-        <th scope="col">Tail Number</th>
-        <th scope="col">Starting Airport</th>
-        <th scope="col">Destination Airport</th>
-        <th scope="col">Departure Time</th>
-        <th scope="col">Arrival Time</th>
-        <th scope="col">Distance</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for flight_keys, date, airline_ticker, flight_number, tail_number, starting_airport,
-      destination_airport, scheduled_departure, scheduled_arrival, distance in list_flights %}
-      <tr>
-        <td>{{date}}</td>
-        <td>{{airline_ticker}}</td>
-        <td>{{flight_number}}</td>
-        <td>{{tail_number}}</td>
-        <td>{{starting_airport}}</td>
-        <td>{{destination_airport}}</td>
-        <td>{{scheduled_departure}}</td>
-        <td>{{scheduled_arrival}}</td>
-        <td>{{distance}}</td>
-      </tr>
+          <div class="form-group row">
+            <label for="date" class="col-md-4 col-form-label">Start Date</label>
+            <div class="col-sm-6">
+              <input type="date" class="input" name="date" placeholder="Start Date" required>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="starting_airport" class="col-md-4 col-form-label">Starting Airport</label>
+            <div class="col-sm-6">
+              <select id="starting_airport" class="form-control" name="starting_airport">
+                {% for a in all_destinations%}
+                <option value={{a[0]}}>{{a[0]}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="destination_airport" class="col-md-4 col-form-label">Destination Airport</label>
+            <div class="col-sm-6">
+              <select id="destination_airport" class="form-control" name="destination_airport">
+                {% for a in all_destinations%}
+                <option value={{a[0]}}>{{a[0]}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <table class="ui celled table" style="width:100%">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Airline Firm</th>
+          <th scope="col">Flight Number</th>
+          <th scope="col">Tail Number</th>
+          <th scope="col">Starting Airport</th>
+          <th scope="col">Destination Airport</th>
+          <th scope="col">Departure Time</th>
+          <th scope="col">Arrival Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for flight_keys, date, airline_ticker, flight_number, tail_number, starting_airport,
+        destination_airport, scheduled_departure, scheduled_arrival in list_flights %}
+        <tr>
+          <td>{{date}}</td>
+          <td>{{airline_ticker}}</td>
+          <td>{{flight_number}}</td>
+          <td>{{tail_number}}</td>
+          <td>{{starting_airport}}</td>
+          <td>{{destination_airport}}</td>
+          <td>{{scheduled_departure}}</td>
+          <td>{{scheduled_arrival}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      {% for a in current_page%}
+      <li class="page-item"><a class="page-link"
+          href="{{ url_for('flights.flights_page', current_page = a) }}">{{a}}</a>
+      </li>
       {% endfor %}
-  </table>
-</div>
-{%endblock subject%}
+    </ul>
+  </nav>
+
+  {%endblock subject%}
