@@ -4,6 +4,16 @@
 
 <a href="{{ url_for('airports.add_airport') }}" class="btn btn-secondary btn-sm"> Add Airport </a>
 
+<div class="row justify-content-center" style="margin-left: 45%;">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% for a in current_page%}
+    <li class="page-item"><a class="page-link" href="{{ url_for('airports.airports_page', current_page = a)}}">{{a}}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
+</div>
+
 <div class="container">
   <form action="{{ url_for('airports.del_airport', airport_keys=airport_keys) }}" method="post" name="airport_x">
     <table class="ui celled table" style="width:100%">
@@ -48,13 +58,15 @@
   </form>
 </div>
 
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    {% for a in current_page%}
-    <li class="page-item"><a class="page-link" href="{{ url_for('airports.airports_page', current_page = a)}}">{{a}}</a></li>
-    {% endfor %}
-  </ul>
-</nav>
+<div class="row justify-content-center" style="margin-left: 45%;">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      {% for a in current_page%}
+      <li class="page-item"><a class="page-link" href="{{ url_for('airports.airports_page', current_page = a)}}">{{a}}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+  </div>
 
 
 

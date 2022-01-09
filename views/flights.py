@@ -1,82 +1,59 @@
-from flask import Blueprint, request, render_template, redirect, url_for,session
+from flask import Blueprint, request, render_template, redirect, url_for,session, flash
 import psycopg2 as db
 import math
 import os
+from dateutil import parser
 
-
-def createList(r1, r2):
-  
-    # Testing if range r1 and r2 
-    # are equal
-    if (r1 == r2):
-        return r1
-  
-    else:
-  
-        # Create empty list
-        res = []
-  
-        # loop to append successors to 
-        # list until r2 is reached.
-        while(r1 < r2+1 ):
-              
-            res.append(r1)
-            r1 += 1
-        return res
 
 def validate_flight(form):
     form.data = {}
     form.errors = {}
-    # Airport_Code
-    form_airport_code = form.get("airport_code").strip()
-    if len(form_airport_code) != 3:
-        form.errors["airport_code"] = "Airport code must be 3 character."
+
+    # Date
+    form_date = form.get("date")
+    if  bool(parser.parse(form_date)):
+        form.data["date"] = form_date
     else:
-        form.data["airport_code"] = form_airport_code
-    # Airport_Name
-    form_airport_name = form.get("airport_name", "").strip()
-    if len(form_airport_name) == 0:
-        form.errors["airport_name"] = "Airport name can not be left blank."
+        form.errors["date"] = "Date Format is YYYY-MM-DD."
+    # airline_ticker
+    form_airline_ticker = form.get("airline_ticker", "").strip()
+    if len(form_airline_ticker) == 0:
+        form.errors["airline_ticker"] = "Airline Ticker can not be left blank."
     else:
-        form.data["airport_name"] = form_airport_name
-    # City
-    form_city = form.get("city", "").strip()
-    if len(form_city) == 0:
-        form.errors["city"] = "City can not be left blank."
-    elif len(form_city) >= 33:
-        form.errors["city"] = "City can not be higher 32 characters."
+        form.data["airline_ticker"] = form_airline_ticker
+    # flight_number
+    form_flight_number = form.get("flight_number", "").strip()
+    if len(form_flight_number) == 0:
+        form.errors["flight_number"] = "Flight number can not be left blank."
     else:
-        form.data["city"] = form_city
-    # State
-    form_state = form.get("state", "").strip()
-    if len(form_state) != 2:
-        form.errors["state"] = "State must be 2 character."
+        form.data["flight_number"] = form_flight_number
+    # tail_number
+    form_tail_number = form.get("tail_number", "").strip()
+    if len(form_tail_number) != 6:
+        form.errors["state"] = "State must be 6 character."
     else:
-        form.data["state"] = form_state
-    # Country
-    form_country = form.get("country", "").strip()
-    if len(form_country) == 0:
-        form.errors["country"] = "Country can not be left blank."
+        form.data["tail_number"] = form_tail_number
+    # Destination Airport
+    form_destination_airport = form.get("destination_airport", "").strip()
+    if len(form_destination_airport) == 0:
+        form.errors["destination_airport"] = "Destination airport can not be left blank."
     else:
-        form.data["country"] = form_country
-    # Latitude
-    form_latitude = form.get("latitude").strip("-")
-    x = form_latitude.replace(".", "", 1).isdigit()
-    if not form_latitude:
-        form.data["latitude"] = None
-    elif x == False:
-        form.errors["latitude"] = "Latitude must be float."
+        form.data["destination_airport"] = form_destination_airport
+    # Departure Time
+    form_dep_time = form.get("dep_time").split(':')
+    if (len(form_dep_time[0]) != 2 or form_dep_time[0] < '00' or form_dep_time[0] > '23' or len(form_dep_time[1])  != 2 or form_dep_time[1] < '00' or form_dep_time[1] > '59'):
+        form.errors["dep_time"] = "Departure time  must be between valid times."
     else:
-        form.data["latitude"] = form_latitude
-    # Longtitude
-    form_longitude = form.get("longitude").strip("-")
-    y = form_longitude.replace(".", "", 1).isdigit()
-    if not form_longitude:
-        form.data["latitude"] = None
-    elif y == False:
-        form.errors["longitude"] = "Longitude must be float."
+        form_dep_time = form.get("dep_time")
+        form.data["dep_time"] = form_dep_time
+    # Arrival Time
+    form_arriv_time = form.get("arriv_time").split(':')
+    if(len(form_arriv_time[0]) != 2 or form_arriv_time[0] < '00' or form_arriv_time[0] > '23' or len(form_arriv_time[1])  != 2 or form_arriv_time[1] < '00' or form_arriv_time[1] > '59'):
+        form.errors["arriv_time"] = "Arrival time must be between valid times."
     else:
-        form.data["longitude"] = form_longitude
+        form_dep_time = form.get("dep_time")
+        form.data["arriv_time"] = form_arriv_time
+    
     return len(form.errors) == 0
 
     
@@ -108,28 +85,11 @@ def flights_page():
             endAirport = request.form["destination_airport"]
 
         cur.execute(("SELECT * FROM flights WHERE date = %s and starting_airport = %s and destination_airport = %s"),(dateS,startAirport,endAirport))
-        x_list_flights = cur.fetchall()
+        list_flights = cur.fetchall()
+        if len(list_flights) == 0:
+            flash("There exists not a flight like this!", "danger")
 
-        if isinstance(x_list_flights, type(None)):
-            list_flights = ()
-        else:
-            list_flights = x_list_flights
         return render_template("flights_page.html", list_flights=list_flights , all_destinations = all_destinations)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @flights.route("/flights/<airport_code>", methods=["GET", "POST"])
 def airport_flights(airport_code):
@@ -160,6 +120,7 @@ def airport_flights(airport_code):
 @flights.route("/add_flight/<airport_code>", methods=["POST", "GET"])
 def add_flight(airport_code):
     if not 'id' in session:
+        flash("Please login!", "danger")
         return redirect(url_for("user_authentication.login"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()

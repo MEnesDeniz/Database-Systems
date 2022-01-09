@@ -109,12 +109,14 @@ def airports_page(current_page):
                     current_page,
                 )
         else:
+            page_list = ()
             cur.execute("SELECT * FROM airports")
         list_airports = cur.fetchall()
         cur.close()
         return render_template(
             "airports_page.html", list_airports=list_airports, current_page=page_list
         )
+
 
 
 @airports.route("/del_airport", methods=["POST", "GET"])
