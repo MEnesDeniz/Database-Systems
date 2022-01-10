@@ -2,8 +2,9 @@
 
 {%block subject%}
 
+{% if session['isAdmin'] %}
 <a href="{{ url_for('airports.add_airport') }}" class="btn btn-secondary btn-sm"> Add Airport </a>
-
+{% endif %}
 
 <div class="row justify-content-center" style="margin-top: 5%;">
   <div class="col-md-6">
@@ -50,9 +51,11 @@
         {% for airport_keys, airport_code,airport_name,city, state, country,latitude,longitude in list_airports%}
         <tr>
           <td>
+            {% if session['isAdmin'] %}
             <label class="checkbox">
               <input type="checkbox" name="airport_keys" value="{{ airport_keys }}" />
             </label>
+            {% endif %}
             <a href="{{ url_for('airports.del_airport', airport_keys=airport_keys) }}"></a>
           </td>
           <td><a href=" {{ url_for('flights.airport_flights', airport_code = airport_code ) }}"> {{airport_code}}</a></td>
@@ -62,16 +65,20 @@
           <td>{{country}}</td>
           <td>{{latitude}}</td>
           <td>{{longitude}}</td>
+          {% if session['isAdmin'] %}
           <td><a href="{{ url_for('airports.update_airport', id = airport_keys) }}" class="btn btn-secondary btn-sm">
             Update </a></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>
+    {% if session['isAdmin'] %}
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-danger is-small">Delete</button>
       </div>
     </div>
+    {% endif %}
   </form>
 </div>
 

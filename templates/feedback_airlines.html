@@ -2,79 +2,88 @@
 
 {%block subject%}
 
+{% if session['isAdmin'] %}
 <a href="{{ url_for('feedback.add_feedback', ticker = ticker ) }}" class="btn btn-secondary btn-sm"> Add FeedBack </a>
+{% endif %}
 
 <div class="row justify-content-center" style="margin-top: 5%;">
-    <div class="col-md-6">
-      <div class="card-header">Search by Satisfaction
-        <div class="card">
-          <form action="" method="post" name="satisFilter">
- 
-            <div class="form-group row">
-              <label for="satisfaction" class="col-md-4 col-form-label">Satisfaction</label>
-              <div class="col-sm-6">
-                <select id="satisfaction" class="form-control" name="satisfaction">
-                  <option value="*"> All </option>
-                  {% for a in satisfaction%}
-                  <option value={{a[0]}}>{{a[0]}}</option>
-                  {% endfor %}
-                </select>
-              </div>
+  <div class="col-md-6">
+    <div class="card-header">Search by Satisfaction
+      <div class="card">
+        <form action="" method="post" name="satisFilter">
+
+          <div class="form-group row">
+            <label for="satisfaction" class="col-md-4 col-form-label">Satisfaction</label>
+            <div class="col-sm-6">
+              <select id="satisfaction" class="form-control" name="satisfaction">
+                <option value="*"> All </option>
+                {% for a in satisfaction%}
+                <option value={{a[0]}}>{{a[0]}}</option>
+                {% endfor %}
+              </select>
             </div>
-  
-            <button class="btn btn-primary btn-block">
-              Search
-            </button>
-          </form>
-        </div>
+          </div>
+
+          <button class="btn btn-primary btn-block">
+            Search
+          </button>
+        </form>
       </div>
     </div>
   </div>
+</div>
 
 <div class="container">
-    <form action="" method="post" name="delete">
-        <table class="ui celled table" style="width:100%">
-            <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Added by the User</th>
-                    <th scope="col">Type of Travel</th>
-                    <th scope="col">Class</th>
-                    <th scope="col">Satisfaction</th>
-                    <th scope="col">Online Support</th>
-                    <th scope="col">Checkin Service</th>
-                    <th scope="col">Baggage Handling</th>
-                    <th scope="col">Cleanliness</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for feedback in feedbacks%}
-                <tr>
-                    <td>
-                        <label class="checkbox">
-                            <input type="checkbox" name="feedback_id" value="{{feedback[0]}}" />
-                        </label>
-                        <a href="{{ url_for('feedback.airline_feedback', ticker=feedback[9], id=feedback[0]) }}"></a>
-                    </td>
-                    <td>{{feedback[1]}}</td>
-                    <td>{{feedback[2]}}</td>
-                    <td>{{feedback[3]}}</td>
-                    <td>{{feedback[4]}}</td>
-                    <td>{{feedback[5]}}</td>
-                    <td>{{feedback[6]}}</td>
-                    <td>{{feedback[7]}}</td>
-                    <td>{{feedback[8]}}</td>
-                    <td><a href="{{ url_for('feedback.update_feedback', id=feedback[0], ticker=feedback[9]) }}" class="btn btn-secondary btn-sm">
-                        Update </a></td>
-                </tr>
-                {% endfor %}
-        </table>
-        <div class="field is-grouped">
-            <div class="control">
-                <button class="button is-danger is-small">Delete</button>
-            </div>
-        </div>
-    </form>
+  <form action="" method="post" name="delete">
+    <table class="ui celled table" style="width:100%">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Added by the User</th>
+          <th scope="col">Type of Travel</th>
+          <th scope="col">Class</th>
+          <th scope="col">Satisfaction</th>
+          <th scope="col">Online Support</th>
+          <th scope="col">Checkin Service</th>
+          <th scope="col">Baggage Handling</th>
+          <th scope="col">Cleanliness</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for feedback in feedbacks%}
+        <tr>
+          <td>
+            {% if session['isAdmin'] %}
+            <label class="checkbox">
+              <input type="checkbox" name="feedback_id" value="{{feedback[0]}}" />
+            </label>
+            {% endif %}
+            <a href="{{ url_for('feedback.airline_feedback', ticker=feedback[9], id=feedback[0]) }}"></a>
+          </td>
+          <td>{{feedback[1]}}</td>
+          <td>{{feedback[2]}}</td>
+          <td>{{feedback[3]}}</td>
+          <td>{{feedback[4]}}</td>
+          <td>{{feedback[5]}}</td>
+          <td>{{feedback[6]}}</td>
+          <td>{{feedback[7]}}</td>
+          <td>{{feedback[8]}}</td>
+          {% if session['isAdmin'] %}
+          <td><a href="{{ url_for('feedback.update_feedback', id=feedback[0], ticker=feedback[9]) }}"
+              class="btn btn-secondary btn-sm">
+              Update </a></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% if session['isAdmin'] %}
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-danger is-small">Delete</button>
+      </div>
+    </div>
+    {% endif %}
+  </form>
 </div>
 
 

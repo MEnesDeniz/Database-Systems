@@ -2,8 +2,9 @@
 
 {%block subject%}
 
+{% if session['isAdmin'] %}
 <a href="{{ url_for('airlines.add_airline') }}" class="btn btn-secondary btn-sm"> Add Airlines </a>
-
+{% endif %}
 <div class="container">
   <form action="" method="post" name="airline_delete">
     <table class="ui celled table" style="width:100%">
@@ -19,22 +20,28 @@
         {% for airline_keys, airlines, airline_name in list_airlines%}
         <tr>
           <td>
+            {% if session['isAdmin'] %}
             <label class="checkbox">
               <input type="checkbox" name="airline_keys" value="{{ airline_keys }}" />
             </label>
+            {% endif %}
             <a href="{{ url_for('airlines.airlines_page', airline_keys=airline_keys) }}"></a>
           </td>
           <td><a href=" {{ url_for('feedback.airline_feedback', ticker = airlines ) }}"> {{ airlines }} </a></td>
           <td>{{airline_name}}</td>
+          {% if session['isAdmin'] %}
           <td><a href="{{ url_for('airlines.update_airline', id = airline_keys) }}" class="btn btn-secondary btn-sm">
               Update </a></td>
+              {% endif %}
         </tr>
         {% endfor %}
     </table>
+    {% if session['isAdmin'] %}
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-danger is-small">Delete</button>
       </div>
+      {% endif %}
     </div>
   </form>
 </div>

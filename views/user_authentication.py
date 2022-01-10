@@ -36,6 +36,16 @@ def login():
             flash("Invalid Login Attempt!", "danger")
             return redirect(url_for('user_authentication.login'))
 
+@user_authentication.route("/logout")
+def logout():
+    session['loggedin'] = False
+    session['isAdmin'] = False
+    session.pop('loggedin', None)
+    session.pop('isAdmin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    return redirect(url_for('home_page'))
+
 
 @user_authentication.route("/register",  methods=["GET", "POST"])
 def register():
@@ -81,10 +91,4 @@ def register():
         cur.close()
         return redirect(url_for('user_authentication.login'))
 
-@user_authentication.route("/logout")
-def logout():
-    session['loggedin'] = False
-    session.pop('loggedin', None)
-    session.pop('id', None)
-    session.pop('username', None)
-    return redirect(url_for('home_page'))
+

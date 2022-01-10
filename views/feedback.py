@@ -70,7 +70,7 @@ def airline_feedback(ticker):
     cur = connection.cursor()
     if request.method == "GET":
         cur.execute(
-            "SELECT * FROM feedback WHERE airline_ticker = '{0}'".format(ticker)
+            "SELECT * FROM feedback WHERE airline_ticker = '{0}' order by type".format(ticker)
         )
         feedbacks = cur.fetchall()
         cur.execute("SELECT DISTINCT satisfaction FROM feedback ORDER BY satisfaction ")

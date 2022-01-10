@@ -10,7 +10,7 @@ def airlines_page():
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
-        cur.execute("SELECT * FROM airlines")
+        cur.execute("SELECT * FROM airlines ORDER by ticker")
         list_airlines = cur.fetchall()
         print(list_airlines)
         cur.close()
@@ -40,6 +40,9 @@ def add_airline():
         if request.method == "POST":
             airline_ticker = request.form["airline_ticker"]
             airline_name = request.form["airline_name"]
+            if len(airline_ticker) != 2:
+                flash("Ticker must be 2 consists by two characters", "danger")
+                return redirect(url_for("airlines.airlines_page"))
             cur.execute(
                 "INSERT INTO airlines(ticker,name) VALUES (%s,%s)",
                 (airline_ticker, airline_name),
@@ -63,6 +66,9 @@ def update_airline(id):
     if request.method == "POST":
         airline_ticker = request.form["airline_ticker"]
         airline_name = request.form["airline_name"]
+        if len(airline_ticker) != 2:
+            flash("Ticker must be 2 consists by two characters", "danger")
+            return redirect(url_for("airlines.airlines_page"))
         cur.execute(
             "UPDATE airlines SET ticker = %s, name = %s WHERE id = %s",
             (airline_ticker, airline_name, id),
