@@ -7,7 +7,7 @@ from dateutil import parser
 from views.airports import validate_airports_form
 
 
-def validate_flight(form):
+def validate_flight(form,all_destinations):
     form.data = {}
     form.errors = {}
 
@@ -37,12 +37,18 @@ def validate_flight(form):
         form.data["tail_number"] = form_tail_number
     # Destination Airport
     form_destination_airport = form.get("destination_airport", "").strip()
-    if len(form_destination_airport) != 3:
+    res = False
+
+    for a in all_destinations:
+        if form_destination_airport == a[0]:
+            res = True
+
+    if res == True:
+        form.data["destination_airport"] = form_destination_airport
+    else:
         form.errors[
             "destination_airport"
-        ] = "Destination airport can not be left blank."
-    else:
-        form.data["destination_airport"] = form_destination_airport
+        ] = "Destination airport must be existing airport."
     # Departure Time
     form_dep_time = form.get("dep_time").split(":")
     if (
@@ -189,9 +195,7 @@ def add_flight(airport_code):
         cur.execute("SELECT DISTINCT ticker FROM airlines")
         all_tickers = cur.fetchall()
 
-        valid = validate_flight(request.form)
-        if airport_code == request.form.data["destination_airport"]:
-            valid = 1
+        valid = validate_flight(request.form,all_destinations)
 
         if not valid:
             return render_template(
@@ -231,8 +235,10 @@ def update_flight(id, airport_code):
     if session["isAdmin"] == False:
         flash("Only admins have operate on this", "danger")
         return redirect(url_for("flights.airport_flights", airport_code=airport_code))
+
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
+
     if request.method == "GET":
         cur.execute("SELECT * FROM flights WHERE id = {0}".format(id))
         flights_info = cur.fetchall()
@@ -241,7 +247,6 @@ def update_flight(id, airport_code):
         cur.execute("SELECT DISTINCT ticker FROM airlines")
         all_tickers = cur.fetchall()
         cur.close()
-
         values = {
             "date": flights_info[0][1],
             "airline_ticker": flights_info[0][2],
@@ -256,19 +261,27 @@ def update_flight(id, airport_code):
             values=values,
             all_destinations=all_destinations,
             all_tickers=all_tickers,
+            airport_code=airport_code,
+            id = id,
         )
+
     if request.method == "POST":
         if session["isAdmin"] == False:
             flash("Only admins have operate on this", "danger")
             return redirect(url_for("flights.airport_flights", airport_code=airport_code))
 
-        valid = validate_flight(request.form)
-        if airport_code == request.form.data["destination_airport"]:
-            valid = 1
+        cur.execute("SELECT DISTINCT airport_code FROM airports")
+        all_destinations = cur.fetchall()
+        cur.execute("SELECT DISTINCT ticker FROM airlines")
+        all_tickers = cur.fetchall()
+        valid = validate_flight(request.form,all_destinations)
+
         if not valid:
             return render_template(
-                "flights_add.html",
+                "flights_update.html",
                 airport_code=airport_code,
+                all_destinations=all_destinations,
+                all_tickers=all_tickers,
                 values=request.form,
                 id = id
             )

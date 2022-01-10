@@ -104,14 +104,12 @@ def airline_feedback(ticker):
             flash("Please login!", "danger")
             return redirect(url_for("user_authentication.login"))
         id_feedback = request.form.getlist("feedback_id")
-        i = 0
         for form_feedback_key in id_feedback:
             cur.execute("SELECT user_name FROM feedback WHERE id = {0}".format(form_feedback_key))
             username = cur.fetchone()
-            if session["username"] != username[i]:
+            if session["username"] != username[0]:
                 flash("You can only delete your own comment", "danger")
                 return redirect(url_for("feedback.airline_feedback", ticker=ticker))
-            i = i+1
 
         cur.execute("SELECT DISTINCT satisfaction FROM feedback ORDER BY satisfaction ")
         satisfaction = cur.fetchall()

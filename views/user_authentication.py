@@ -22,6 +22,7 @@ def login():
         pw = sha256(password.encode()).hexdigest()
         connection = db.connect(os.getenv("DATABASE_URL"))
         cur = connection.cursor()
+
         cur.execute("SELECT * FROM users WHERE mail = %s and password = %s", (mail, pw))
         existing_account = cur.fetchone()
         cur.close()
@@ -31,6 +32,9 @@ def login():
             session['username'] = existing_account[1]
             session['isAdmin'] = existing_account[9]
             return redirect(url_for('home_page'))
+        else:
+            flash("Invalid Login Attempt!", "danger")
+            return redirect(url_for('user_authentication.login'))
 
 
 @user_authentication.route("/register",  methods=["GET", "POST"])
@@ -46,6 +50,26 @@ def register():
         phone_number = request.form['phone_number']
         gender = request.form['gender']
         habits = request.form['habit']
+        if len(password.strip()) < 5:
+            flash("Password must be at least 5 character!", "danger")
+            return redirect(url_for("user_authentication.register"))
+
+        if len(mail) > 30 or len(mail.strip()) == 0:
+            flash("Mail must be between 1-30 characters!", "danger")
+            return redirect(url_for("user_authentication.register"))
+
+        if len(user_name) > 20 or len(user_name.strip()) == 0:
+            flash("Username must be between 1-20 characters!", "danger")
+            return redirect(url_for("user_authentication.register"))
+
+        connection = db.connect(os.getenv("DATABASE_URL"))
+        cur = connection.cursor()
+        cur.execute("SELECT * FROM users WHERE user_name = %s", (user_name,))
+        account = cur.fetchall()
+        if account:
+            cur.close()
+            flash("This username is already taken!", "danger")
+            return redirect(url_for("user_authentication.register"))
 
         pw_hashed = sha256(password.encode()).hexdigest()
         connection = db.connect(os.getenv("DATABASE_URL"))

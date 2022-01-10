@@ -13,6 +13,7 @@ from views.feedback import feedback
 app = Flask(__name__)
 app.secret_key = 'airlinesecretkey'
 
+
 app.register_blueprint(airports)
 app.register_blueprint(airlines)
 app.register_blueprint(flights)
@@ -20,6 +21,7 @@ app.register_blueprint(user_authentication)
 app.register_blueprint(feedback)
 
 HEROKU_LAUNCH = False
+
 
 if(not HEROKU_LAUNCH):
 

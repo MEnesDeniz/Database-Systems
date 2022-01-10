@@ -80,7 +80,7 @@ def airports_page(current_page):
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
-        per_page = 25
+        per_page = 15
         cur.execute("select count(*) from airports")
         total = cur.fetchone()[0]
         cur.execute("select airport_code from airports")
