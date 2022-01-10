@@ -2,7 +2,7 @@
 
 {%block subject%}
 
-{% if session['isAdmin'] %}
+{% if session['loggedin'] %}
 <a href="{{ url_for('feedback.add_feedback', ticker = ticker ) }}" class="btn btn-secondary btn-sm"> Add FeedBack </a>
 {% endif %}
 
@@ -53,7 +53,7 @@
         {% for feedback in feedbacks%}
         <tr>
           <td>
-            {% if session['isAdmin'] %}
+            {% if session['loggedin'] %}
             <label class="checkbox">
               <input type="checkbox" name="feedback_id" value="{{feedback[0]}}" />
             </label>
@@ -68,7 +68,7 @@
           <td>{{feedback[6]}}</td>
           <td>{{feedback[7]}}</td>
           <td>{{feedback[8]}}</td>
-          {% if session['isAdmin'] %}
+          {% if session['loggedin'] %}
           <td><a href="{{ url_for('feedback.update_feedback', id=feedback[0], ticker=feedback[9]) }}"
               class="btn btn-secondary btn-sm">
               Update </a></td>
@@ -76,7 +76,7 @@
         </tr>
         {% endfor %}
     </table>
-    {% if session['isAdmin'] %}
+    {% if session['loggedin'] %}
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-danger is-small">Delete</button>

@@ -38,7 +38,6 @@ def validate_flight(form,all_destinations):
     # Destination Airport
     form_destination_airport = form.get("destination_airport", "").strip()
     res = False
-
     for a in all_destinations:
         if form_destination_airport == a[0]:
             res = True
@@ -205,11 +204,21 @@ def add_flight(airport_code):
                 all_tickers=all_tickers,
                 values=request.form,
             )
+        destination_airport = request.form.data["destination_airport"]
+        if(airport_code == destination_airport):
+            flash("You can not set a flight to the current location!'", "danger")
+            return render_template(
+                "flights_add.html",
+                airport_code=airport_code,
+                all_destinations=all_destinations,
+                all_tickers=all_tickers,
+                values=request.form,
+            )
+
         date = request.form.data["date"]
         airline_ticker = request.form.data["airline_ticker"]
         flight_number = request.form.data["flight_number"]
         tail_number = request.form.data["tail_number"]
-        destination_airport = request.form.data["destination_airport"]
         departure_time = request.form.data["dep_time"]
         arrival_time = request.form.data["arriv_time"]
         cur.execute(
@@ -277,6 +286,18 @@ def update_flight(id, airport_code):
         valid = validate_flight(request.form,all_destinations)
 
         if not valid:
+            return render_template(
+                "flights_update.html",
+                airport_code=airport_code,
+                all_destinations=all_destinations,
+                all_tickers=all_tickers,
+                values=request.form,
+                id = id
+            )
+        destination_airport = request.form.data["destination_airport"]
+        
+        if(airport_code == destination_airport):
+            flash("You can not set a flight to the current location!'", "danger")
             return render_template(
                 "flights_update.html",
                 airport_code=airport_code,

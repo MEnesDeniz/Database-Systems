@@ -53,18 +53,15 @@ def validate_airports_form(form):
     # Latitude
     form_latitude = form.get("latitude").strip("-")
     x = form_latitude.replace(".", "", 1).isdigit()
-    if not form_latitude:
-        form.data["latitude"] = None
-    elif x == False:
+    if x == False:
         form.errors["latitude"] = "Latitude must be float."
     else:
         form.data["latitude"] = form_latitude
     # Longtitude
     form_longitude = form.get("longitude").strip("-")
     y = form_longitude.replace(".", "", 1).isdigit()
-    if not form_longitude:
-        form.data["latitude"] = None
-    elif y == False:
+
+    if y == False:
         form.errors["longitude"] = "Longitude must be float."
     else:
         form.data["longitude"] = form_longitude
