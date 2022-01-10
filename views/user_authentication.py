@@ -80,6 +80,13 @@ def register():
             cur.close()
             flash("This username is already taken!", "danger")
             return redirect(url_for("user_authentication.register"))
+        
+        cur.execute("SELECT * FROM users WHERE mail = %s", (mail,))
+        mails = cur.fetchall()
+        if mails:
+            cur.close()
+            flash("This mails is already taken!", "danger")
+            return redirect(url_for("user_authentication.register"))
 
         pw_hashed = sha256(password.encode()).hexdigest()
         connection = db.connect(os.getenv("DATABASE_URL"))
