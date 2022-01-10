@@ -4,14 +4,31 @@
 
 <a href="{{ url_for('airports.add_airport') }}" class="btn btn-secondary btn-sm"> Add Airport </a>
 
-<div class="row justify-content-center" style="margin-left: 45%;">
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    {% for a in current_page%}
-    <li class="page-item"><a class="page-link" href="{{ url_for('airports.airports_page', current_page = a)}}">{{a}}</a></li>
-    {% endfor %}
-  </ul>
-</nav>
+
+<div class="row justify-content-center" style="margin-top: 5%;">
+  <div class="col-md-6">
+    <div class="card-header">Select the airport to see it's departured flights
+      <div class="card">
+        <form action="{{ url_for('airports.select_airport') }}" method="post" name="satisFilter">
+
+          <div class="form-group row">
+            <label for="airportFlight" class="col-md-4 col-form-label">Airports</label>
+            <div class="col-sm-6">
+              <select id="airportFlight" class="form-control" name="airportFlight">
+                {% for a in allPorts%}
+                <option value={{a[0]}}>{{a[0]}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block">
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="container">
@@ -58,7 +75,7 @@
   </form>
 </div>
 
-<div class="row justify-content-center" style="margin-left: 45%;">
+<div class="row justify-content-center" style="margin-left: 0%;">
   <nav aria-label="Page navigation example">
     <ul class="pagination">
       {% for a in current_page%}
@@ -66,6 +83,14 @@
       {% endfor %}
     </ul>
   </nav>
+  </div>
+
+  <div class="dropdown">
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      {% for a in current_page%}
+      <a class="dropdown-item" href="{{ url_for('airports.airports_page', current_page = a)}}">{{a}}</a>
+      {% endfor %}
+    </div>
   </div>
 
 

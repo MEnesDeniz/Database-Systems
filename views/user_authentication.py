@@ -1,4 +1,4 @@
-from flask import Blueprint, request,   render_template, redirect, url_for, session, flash
+from flask import Blueprint, request, render_template, redirect, url_for, session, flash
 from hashlib import sha256
 import psycopg2 as db
 import os
@@ -29,6 +29,7 @@ def login():
             session['loggedin'] = True
             session['id'] = existing_account[0]
             session['username'] = existing_account[1]
+            session['isAdmin'] = existing_account[9]
             return redirect(url_for('home_page'))
 
 

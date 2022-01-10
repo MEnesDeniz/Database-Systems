@@ -3,11 +3,20 @@
 {%block subject%}
 <div class="row justify-content-center" style="margin-top: 5%;">
   <div class="col-md-6">
-    <div class="card-header"> Update Feedback
+    <div class="card-header"> Add Feedback
       <div class="card">
         <form action="{{ url_for('feedback.update_feedback', id = id, ticker = ticker) }}" method="post"
           name="feedback_update">
 
+          <div class="field">
+            <div class="form-group row">
+              <label for="type" class="col-md-4 col-form-label">This comment belongs to: </label>
+              <div class="col-sm-6">
+          <input type="text" id="sessionUsename" name="sessionUsename" placeholder= {{name}} readonly>
+        </div>
+      </div>
+    </div>
+          
           <div class="field">
             <div class="form-group row">
               <label for="type" class="col-md-4 col-form-label">Type</label>

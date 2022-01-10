@@ -16,6 +16,9 @@ def airlines_page():
         cur.close()
         return render_template("airlines_page.html", list_airlines=list_airlines)
     else:
+        if session["isAdmin"] == False:
+            flash("Only admins have operate on this", "danger")
+            return redirect(url_for("airlines.airlines_page"))
         airline_keys = request.form.getlist("airline_keys")
         for form_airline_key in airline_keys:
             cur.execute("DELETE FROM airlines WHERE id = {0}".format(form_airline_key))
@@ -26,8 +29,9 @@ def airlines_page():
 
 @airlines.route("/add_airline", methods=["POST", "GET"])
 def add_airline():
-    if not 'id' in session:
-        return redirect(url_for("user_authentication.login"))
+    if session["isAdmin"] == False:
+        flash("Only admins have operate on this", "danger")
+        return redirect(url_for("airlines.airlines_page"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     if request.method == "GET":
         return render_template("airlines_add.html")
@@ -47,8 +51,9 @@ def add_airline():
 
 @airlines.route("/airline_update/<id>", methods=["POST", "GET"])
 def update_airline(id):
-    if not 'id' in session:
-        return redirect(url_for("user_authentication.login"))
+    if session["isAdmin"] == False:
+        flash("Only admins have operate on this", "danger")
+        return redirect(url_for("airlines.airlines_page"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":

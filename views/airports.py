@@ -1,8 +1,19 @@
-from flask import Blueprint, request, render_template, redirect, url_for, session
+from flask import Blueprint, request, render_template, redirect, url_for, session,flash
 import math
 import psycopg2 as db
 import os
 
+def createList(r1, r2):
+    if (r1 == r2):
+        return r1
+  
+    else:
+        res = []
+        while(r1 < r2+1 ):
+              
+            res.append(r1)
+            r1 += 1
+        return res
 
 def validate_airports_form(form):
     form.data = {}
@@ -72,55 +83,34 @@ def airports_page(current_page):
         per_page = 25
         cur.execute("select count(*) from airports")
         total = cur.fetchone()[0]
+        cur.execute("select airport_code from airports")
+        allPorts = cur.fetchall()
         page_count = math.ceil(total / per_page)
         offset = per_page * (current_page - 1)
         if page_count > 1:
-            cur.execute(
-                "SELECT * FROM airports order by airport_code LIMIT {} OFFSET {}".format(
-                    per_page, offset
-                )
-            )
-            if current_page == 1:
-                page_list = (
-                    current_page,
-                    current_page + 1,
-                    current_page + 2,
-                    page_count,
-                )
-            elif 1 < current_page < page_count - 1:
-                page_list = (
-                    current_page - 1,
-                    current_page,
-                    current_page + 1,
-                    page_count,
-                )
-            elif current_page == page_count - 1:
-                page_list = (
-                    current_page - 3,
-                    current_page - 2,
-                    current_page - 1,
-                    page_count,
-                )
-            elif current_page == page_count:
-                page_list = (
-                    current_page - 3,
-                    current_page - 2,
-                    current_page - 1,
-                    current_page,
-                )
+            cur.execute("SELECT * FROM airports order by airport_code LIMIT {} OFFSET {}".format(per_page, offset))
+            page_list = createList(1,page_count)
         else:
             page_list = ()
             cur.execute("SELECT * FROM airports")
         list_airports = cur.fetchall()
         cur.close()
         return render_template(
-            "airports_page.html", list_airports=list_airports, current_page=page_list
+            "airports_page.html", list_airports=list_airports, current_page=page_list, allPorts = allPorts
         )
 
 
+@airports.route("/filter", methods=["POST", "GET"])
+def select_airport():
+    if request.method == "POST":
+        airport_code = request.form["airportFlight"]
+        return redirect(url_for("flights.airport_flights", airport_code=airport_code))
 
 @airports.route("/del_airport", methods=["POST", "GET"])
 def del_airport():
+    if session["isAdmin"] == False:
+        flash("Only admins have operate on this", "danger")
+        return redirect(url_for("airports.airports_page"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "POST":
@@ -134,9 +124,9 @@ def del_airport():
 
 @airports.route("/add_airport", methods=["POST", "GET"])
 def add_airport():
-    if not "id" in session:
-        return redirect(url_for("user_authentication.login"))
-
+    if session["isAdmin"] == False:
+        flash("Only admins have operate on this", "danger")
+        return redirect(url_for("airports.airports_page"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
@@ -151,7 +141,12 @@ def add_airport():
         }
         return render_template("airports_add.html", values=values)
     if request.method == "POST":
+        if session["isAdmin"] == False:
+            flash("Only admins have operate on this", "danger")
+            return redirect(url_for("airports.airports_page"))
         valid = validate_airports_form(request.form)
+
+        
         if not valid:
             return render_template(
                 "airports_add.html",
@@ -175,8 +170,9 @@ def add_airport():
 
 @airports.route("/airport_update/<id>", methods=["POST", "GET"])
 def update_airport(id):
-    if not "id" in session:
-        return redirect(url_for("user_authentication.login"))
+    if session["isAdmin"] == False:
+        flash("Only admins have operate on this", "danger")
+        return redirect(url_for("airports.airports_page"))
     connection = db.connect(os.getenv("DATABASE_URL"))
     cur = connection.cursor()
     if request.method == "GET":
@@ -195,6 +191,9 @@ def update_airport(id):
         cur.close()
         return render_template("airports_update.html", id = Aid, values=values)
     if request.method == "POST":
+        if session["isAdmin"] == False:
+            flash("Only admins have operate on this", "danger")
+            return redirect(url_for("airports.airports_page"))
         valid = validate_airports_form(request.form)
         if not valid:
             return render_template(

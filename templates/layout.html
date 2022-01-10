@@ -35,9 +35,18 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('flights.flights_page') }}">Flights</a>
         </li>
+        {% if session['loggedin'] %}
         <li class="nav-item">
           <a class="nav-link" href="{{url_for('user_authentication.logout')}}">Log Out</a>
         </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('user_authentication.login')}}">Log in</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('user_authentication.register')}}">Register</a>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </nav>

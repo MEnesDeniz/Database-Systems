@@ -4,6 +4,33 @@
 
 <a href="{{ url_for('feedback.add_feedback', ticker = ticker ) }}" class="btn btn-secondary btn-sm"> Add FeedBack </a>
 
+<div class="row justify-content-center" style="margin-top: 5%;">
+    <div class="col-md-6">
+      <div class="card-header">Search by Satisfaction
+        <div class="card">
+          <form action="" method="post" name="satisFilter">
+ 
+            <div class="form-group row">
+              <label for="satisfaction" class="col-md-4 col-form-label">Satisfaction</label>
+              <div class="col-sm-6">
+                <select id="satisfaction" class="form-control" name="satisfaction">
+                  <option value="*"> All </option>
+                  {% for a in satisfaction%}
+                  <option value={{a[0]}}>{{a[0]}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+  
+            <button class="btn btn-primary btn-block">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <div class="container">
     <form action="" method="post" name="delete">
         <table class="ui celled table" style="width:100%">

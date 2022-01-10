@@ -7,20 +7,24 @@
         <div class="card-header">Flight Update
             <div class="card">
                 <form
-                    action="{{ url_for('flights.update_flight', id = flights_info[0][0], airport_code = flights_info[0][5])}}"
+                    action="{{ url_for('flights.update_flight', id = id, airport_code = airport_code)}}"
                     method="post" name="flights_update">
 
                     <div class="form-group row">
                         <label for="date" class="col-md-4 col-form-label">Date</label>
                         <div class="col-sm-6">
-                            <input type="date" class="form-control" name="date" value="{{flights_info[0][1]}}"
+                            <input type="date" class="form-control" name="date" value="{{ values['date'] }}"
                                 required="required">
                         </div>
+                        {% if 'date' in values.errors %}
+                        <p style="color:red;">
+                            {{ values.errors['date'] }}
+                        </p>
+                        {% endif %}
                     </div>
 
                     <div class="form-group row">
-                        <label for="airline_ticker" class="col-md-4 col-form-label">Airline Code Previous:
-                            {{flights_info[0][2]}}</label>
+                        <label for="airline_ticker" class="col-md-4 col-form-label">Airline Code</label>
                         <div class="col-sm-6">
                             <select id="airline_ticker" class="form-control" name="airline_ticker">
                                 {% for a in all_tickers%}
@@ -28,28 +32,41 @@
                                 {% endfor %}
                             </select>
                         </div>
+                        {% if 'airline_ticker' in values.errors %}
+                        <p style="color:red;">
+                            {{ values.errors['airline_ticker'] }}
+                        </p>
+                        {% endif %}
                     </div>
 
                     <div class="form-group row">
                         <label for="flight_number" class="col-md-4 col-form-label">Flight Number</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="flight_number" value="{{flights_info[0][3]}}"
-                                required="required">
+                            <input type="text" class="form-control" name="flight_number"
+                                value="{{ values['flight_number'] }}" required="required">
                         </div>
+                        {% if 'flight_number' in values.errors %}
+                        <p style="color:red;">
+                            {{ values.errors['flight_number'] }}
+                        </p>
+                        {% endif %}
                     </div>
 
                     <div class="form-group row">
                         <label for="tail_number" class="col-md-4 col-form-label">Tail Number</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="tail_number" value="{{flights_info[0][4]}}"
-                                required="required">
+                            <input type="text" class="form-control" name="tail_number"
+                                value="{{ values['tail_number'] }}" required="required">
                         </div>
+                        {% if 'tail_number' in values.errors %}
+                        <p style="color:red;">
+                            {{ values.errors['tail_number'] }}
+                        </p>
+                        {% endif %}
                     </div>
 
-
                     <div class="form-group row">
-                        <label for="destination_airport" class="col-md-4 col-form-label">Destination Airport Previous:
-                            {{flights_info[0][6]}}</label>
+                        <label for="destination_airport" class="col-md-4 col-form-label">Destination Airport</label>
                         <div class="col-sm-6">
                             <select id="destination_airport" class="form-control" name="destination_airport">
                                 {% for a in all_destinations%}
@@ -57,27 +74,41 @@
                                 {% endfor %}
                             </select>
                         </div>
+                        {% if 'destination_airport' in values.errors %}
+                        <p style="color:red;">
+                            {{ values.errors['destination_airport'] }}
+                        </p>
+                        {% endif %}
                     </div>
 
                     <div class="form-group row">
                         <label for="dep_time" class="col-md-4 col-form-label">Departure Time</label>
                         <div class="col-sm-6">
-                            <input type="time" class="form-control" name="dep_time" value="{{flights_info[0][7]}}"
+                            <input type="time" class="form-control" name="dep_time" value="{{ values['dep_time'] }}"
                                 required="required">
                         </div>
+                        {% if 'dep_time' in values.errors %}
+                        <p style="color:red;">
+                            {{ values.errors['dep_time'] }}
+                        </p>
+                        {% endif %}
                     </div>
 
                     <div class="form-group row">
                         <label for="arriv_time" class="col-md-4 col-form-label">Arrival Time</label>
                         <div class="col-sm-6">
-                            <input type="time" class="form-control" name="arriv_time" value="{{flights_info[0][8]}}"
+                            <input type="time" class="form-control" name="arriv_time" value="{{ values['arriv_time'] }}"
                                 required="required">
                         </div>
-                    </div>
+                        {% if 'arriv_time' in values.errors %}
+                        <p style="color:red;">
+                            {{ values.errors['arriv_time'] }}
+                        </p>
+                        {% endif %}
 
-                    <button class="btn btn-primary btn-block">
-                        Save
-                    </button>
+                        <button class="btn btn-primary btn-block">
+                            Save
+                        </button>
                 </form>
             </div>
         </div>
