@@ -152,7 +152,17 @@ def add_feedback(ticker):
                 values=request.form,
             )
 
-        type = request.form["type"]
+        cur.execute(
+            "SELECT user_name FROM feedback WHERE airline_ticker = '{0}'".format(ticker)
+            )
+        existing_name = cur.fetchall()
+
+        for name_exists in existing_name:
+            if session["username"] == name_exists[0]:
+                flash("You have already commented!", "danger")
+                return redirect(url_for("feedback.airline_feedback", ticker=ticker))
+
+        type = request.form["type"] 
         classt = request.form["class"]
         satisfaction = request.form["satisfaction"]
         online_support = request.form["online_support"]
